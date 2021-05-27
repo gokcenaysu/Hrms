@@ -7,11 +7,13 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name="hrms_personnels")
+@EqualsAndHashCode(callSuper = false)
 @PrimaryKeyJoinColumn(name="user_id", referencedColumnName = "id")
 @AllArgsConstructor
 @NoArgsConstructor
