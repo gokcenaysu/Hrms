@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="hrms_personnels")
-@PrimaryKeyJoinColumn(name="user_id")
+@PrimaryKeyJoinColumn(name="user_id", referencedColumnName = "id")
 @AllArgsConstructor
 @NoArgsConstructor
 public class HrmsPersonnel extends User{
