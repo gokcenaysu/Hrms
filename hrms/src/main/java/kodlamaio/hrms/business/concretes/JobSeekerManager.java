@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.JobSeekerService;
-import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
 import kodlamaio.hrms.core.adapters.abstracts.RegexService;
 import kodlamaio.hrms.core.adapters.abstracts.SimulatedMernisService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
@@ -23,16 +22,13 @@ public class JobSeekerManager implements JobSeekerService{
 	private JobSeekerDao jobSeekerDao;
 	private RegexService regexService;
 	private SimulatedMernisService simulatedMernisService;
-	private VerificationService emailVerificationService;
 	
 	@Autowired
 	public JobSeekerManager(JobSeekerDao jobSeekerDao, RegexService regexService,
-			SimulatedMernisService simulatedMernisService,
-			VerificationService emailVerificationService) {
+			SimulatedMernisService simulatedMernisService) {
 		super();
 		this.jobSeekerDao = jobSeekerDao;
 		this.simulatedMernisService = simulatedMernisService;
-		this.emailVerificationService = emailVerificationService;
 		this.regexService=regexService;
 	}
 
