@@ -1,4 +1,4 @@
-package kodlamaio.hrms.core.adapters.abstracts;
+package kodlamaio.hrms.business.abstracts;
 
 import kodlamaio.hrms.entities.concretes.Employer;
 
