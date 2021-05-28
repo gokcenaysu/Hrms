@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.JobSeekerService;
-import kodlamaio.hrms.core.adapters.abstracts.EmailVerificationService;
+import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
+import kodlamaio.hrms.core.adapters.abstracts.RegexService;
 import kodlamaio.hrms.core.adapters.abstracts.SimulatedMernisService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
@@ -20,16 +21,19 @@ import kodlamaio.hrms.entities.concretes.JobSeeker;
 public class JobSeekerManager implements JobSeekerService{
 
 	private JobSeekerDao jobSeekerDao;
+	private RegexService regexService;
 	private SimulatedMernisService simulatedMernisService;
-	private EmailVerificationService emailVerificationService;
+	private VerificationService emailVerificationService;
 	
 	@Autowired
-	public JobSeekerManager(JobSeekerDao jobSeekerDao, SimulatedMernisService simulatedMernisService,
-			EmailVerificationService emailVerificationService) {
+	public JobSeekerManager(JobSeekerDao jobSeekerDao, RegexService regexService,
+			SimulatedMernisService simulatedMernisService,
+			VerificationService emailVerificationService) {
 		super();
 		this.jobSeekerDao = jobSeekerDao;
 		this.simulatedMernisService = simulatedMernisService;
 		this.emailVerificationService = emailVerificationService;
+		this.regexService=regexService;
 	}
 
 	@Override
@@ -47,7 +51,7 @@ public class JobSeekerManager implements JobSeekerService{
 			return new ErrorResult("Fields cannot be left blank");
 		}
 		
-		if(!emailVerificationService.isEmailFormat(jobSeeker.getEmail())) {
+		if(!regexService.isEmailFormat(jobSeeker.getEmail())) {
 			return new ErrorResult("Please enter in e-mail format");
 		}
 		

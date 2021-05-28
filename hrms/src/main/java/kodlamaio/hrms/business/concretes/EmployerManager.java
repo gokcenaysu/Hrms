@@ -1,13 +1,15 @@
 package kodlamaio.hrms.business.concretes;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
 import kodlamaio.hrms.business.abstracts.ConfirmByPersonnelService;
-import kodlamaio.hrms.core.adapters.abstracts.EmailVerificationService;
+import kodlamaio.hrms.core.adapters.abstracts.RegexService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
@@ -20,16 +22,16 @@ import kodlamaio.hrms.entities.concretes.Employer;
 public class EmployerManager implements EmployerService{
 
 	private EmployerDao employerDao;
-	private EmailVerificationService emailVerificationService;
+	private RegexService regexService;
 	private ConfirmByPersonnelService confirmByPersonnelService;
 	
 	@Autowired
-	public EmployerManager(EmployerDao employerDao, EmailVerificationService emailVerificationService,
+	public EmployerManager(EmployerDao employerDao,  RegexService regexService,
 			ConfirmByPersonnelService confirmByPersonnelService) {
 		super();
 		this.employerDao = employerDao;
-		this.emailVerificationService = emailVerificationService;
 		this.confirmByPersonnelService = confirmByPersonnelService;
+		this.regexService=regexService;
 	}
 
 	
@@ -59,6 +61,10 @@ public class EmployerManager implements EmployerService{
         	return new ErrorResult("Registered e-mail");
         }
         
+        if(!regexService.isPhoneNumberFormat(employer.getPhoneNumber())) {
+        	return new ErrorResult("Invalid phone number");
+        }
+        
         if(employerDao.findByWebsiteEquals(employer.getWebsite())!=null) {
         	return new ErrorResult("Registered website");
         }
@@ -72,4 +78,13 @@ public class EmployerManager implements EmployerService{
 			return new SuccessResult("Your registration has been created successfully");
 	}
   }
+	@Override
+	public Result confirm(Employer employer) {
+		if(!confirmByPersonnelService.isConfirmedByPersonnel(employer)) {
+			return new ErrorResult("Your required confirm by the personnel has not been completed");
+		}
+		else {
+		  return new SuccessResult("Your confirm by the personnel has been completed");
+		}
+	}
 }
