@@ -54,8 +54,7 @@ public class EmployerManager implements EmployerService{
             return new ErrorResult("Your e-mail address and domain do not match");
         }
         
-        if(employerDao.findByEmailEquals(employer.getEmail())!=null
-        		|| employerDao.findByWebsiteEquals(employer.getWebsite())!=null) {
+        if(employerDao.findByEmailEquals(employer.getEmail())!=null) {
         	return new ErrorResult("Registered e-mail");
         }
         
