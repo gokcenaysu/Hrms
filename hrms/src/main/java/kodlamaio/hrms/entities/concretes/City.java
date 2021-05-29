@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="cities")
-@EqualsAndHashCode(callSuper = false)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler","jobPostings"})
 @AllArgsConstructor
 @NoArgsConstructor

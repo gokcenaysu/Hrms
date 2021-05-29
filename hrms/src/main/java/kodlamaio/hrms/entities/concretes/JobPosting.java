@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Table(name="job_postings")
-@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobPosting {

@@ -53,7 +53,7 @@ public class JobPostingManager implements JobPostingService{
 	@Override
 	public DataResult<List<JobPosting>> findByActivityStatusAndCompanyName(String companyName) {
 		return new SuccessDataResult<List<JobPosting>>
-		(this.jobPostingDao.findByActivityStatusTrueAndEmployer_CompanyName(companyName));
+		(this.jobPostingDao.findByActivityStatusAndEmployer_CompanyName(true,companyName));
 		
 	}
 

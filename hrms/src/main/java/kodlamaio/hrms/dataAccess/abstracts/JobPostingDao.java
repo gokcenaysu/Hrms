@@ -14,5 +14,5 @@ public interface JobPostingDao extends JpaRepository<JobPosting, Integer>{
 	
 	 List<JobPosting> findByActivityStatus(boolean activityStatus);
 	 List<JobPosting> findByActivityStatusOrderByApplicationDeadline(boolean activityStatus);
-	 List<JobPosting> findByActivityStatusTrueAndEmployer_CompanyName(String companyName);
+	 List<JobPosting> findByActivityStatusAndEmployer_CompanyName(boolean activityStatus, String companyName);
 }
