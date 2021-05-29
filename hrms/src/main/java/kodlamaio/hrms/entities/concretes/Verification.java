@@ -1,5 +1,6 @@
 package kodlamaio.hrms.entities.concretes;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -36,7 +37,6 @@ public class Verification{
 	private boolean isVerified;
 	
 	@Column(name="verification_date")
-	private Date verificationDate = new Date();
-	
+	private LocalDateTime verificationDate = LocalDateTime.now();
 
 }

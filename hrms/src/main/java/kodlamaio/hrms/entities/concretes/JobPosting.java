@@ -1,6 +1,7 @@
 package kodlamaio.hrms.entities.concretes;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,10 +43,10 @@ public class JobPosting {
 	private int openPositionNumber;
 	
 	@Column(name="application_deadline")
-	private LocalDate applicationDeadline;
+	private LocalDateTime applicationDeadline = LocalDateTime.now();
 	
 	@Column(name="posting_date")
-	private LocalDate postingDate;
+	private LocalDateTime postingDate = LocalDateTime.now();
 	
 	@Column(name="activity_status")
 	private boolean activityStatus;

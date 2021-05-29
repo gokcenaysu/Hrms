@@ -1,5 +1,6 @@
 package kodlamaio.hrms.entities.concretes;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -38,6 +39,7 @@ public class User {
 	private boolean status;
 	
 	@Column(name="created_on")
-    private Date createdOn = new Date();
+    private LocalDateTime createdOn = LocalDateTime.now();
+	
 
 }

@@ -15,7 +15,6 @@ import kodlamaio.hrms.business.abstracts.JobPostingService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.JobPosting;
-import kodlamaio.hrms.entities.concretes.User;
 
 @RestController
 @RequestMapping("/api/job-postings")
@@ -31,7 +30,7 @@ public class JobPostingsController {
 	
 	
 	@PostMapping("/post")
-	public Result post(@RequestParam JobPosting jobPosting) {
+	public Result post(@RequestBody JobPosting jobPosting) {
 		return this.jobPostingService.post(jobPosting);
 	}
 	
