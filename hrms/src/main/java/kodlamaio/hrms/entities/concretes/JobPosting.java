@@ -42,7 +42,7 @@ public class JobPosting {
 	private int openPositionNumber;
 	
 	@Column(name="application_deadline")
-	private LocalDateTime applicationDeadline = LocalDateTime.now();
+	private String applicationDeadline;
 	
 	@Column(name="posting_date")
 	private LocalDateTime postingDate = LocalDateTime.now();
