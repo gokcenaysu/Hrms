@@ -37,6 +37,11 @@ public class JobPositionManager implements JobPositionService{
 		if(jobPositionDao.findBypositionNameEquals(jobPosition.getPositionName())!=null) {
 			return new ErrorResult("This job position is present");
 		}
+		
+		if(jobPosition.getPositionName().isEmpty()) {
+			return new ErrorResult("Enter the position name");
+		}
+		
 		else {
 			this.jobPositionDao.save(jobPosition);
 			return new SuccessResult("The job position has been successfully added");
