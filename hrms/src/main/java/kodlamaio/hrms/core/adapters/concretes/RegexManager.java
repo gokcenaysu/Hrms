@@ -29,4 +29,32 @@ public class RegexManager implements RegexService{
 	        return matcher.matches();
 	}
 
+	@Override
+	public boolean isFirstNameFormat(String firstNameFormat) {
+		String regex = "[A-Z][a-zA-Z]*";
+
+	    Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(firstNameFormat);
+        return matcher.matches();
+	}
+
+	@Override
+	public boolean isLastNameFormat(String lastNameFormat) {
+		String regex = "[A-Z]+[a-zA-Z]*";
+
+	    Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(lastNameFormat);
+        return matcher.matches();
+	}
+
+	@Override
+	public boolean isBirthYearFormat(String birthYearFormat) {
+		String regex = "(?:19|20)\\d\\d";
+
+	    Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(birthYearFormat);
+        return matcher.matches();
+		
+	}
+
 }

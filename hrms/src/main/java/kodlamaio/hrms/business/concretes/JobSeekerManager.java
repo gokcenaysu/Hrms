@@ -47,6 +47,18 @@ public class JobSeekerManager implements JobSeekerService{
 			return new ErrorResult("Fields cannot be left blank");
 		}
 		
+		if(!regexService.isFirstNameFormat(jobSeeker.getFirstName())) {
+			return new ErrorResult("Please enter in name format");
+		}
+		
+		if(!regexService.isLastNameFormat(jobSeeker.getLastName())) {
+			return new ErrorResult("Please enter in surname format");
+		}
+		
+		if(!regexService.isBirthYearFormat(jobSeeker.getBirthYear())) {
+			return new ErrorResult("Please enter in birth year format");
+		}
+		
 		if(!regexService.isEmailFormat(jobSeeker.getEmail())) {
 			return new ErrorResult("Please enter in e-mail format");
 		}
@@ -56,8 +68,12 @@ public class JobSeekerManager implements JobSeekerService{
 			return new ErrorResult("Authentication unsuccessful");
 		}
 		
-		if(jobSeekerDao.findByEmailEquals(jobSeeker.getEmail())!= null || jobSeekerDao.findByIdentityNumberEquals(jobSeeker.getIdentityNumber())!= null) {
-			return new ErrorResult("Registered e-mail or ID number");
+		if(jobSeekerDao.findByEmailEquals(jobSeeker.getEmail())!=null) {
+			return new ErrorResult("Registered e-mail");
+		}
+		
+		if(jobSeekerDao.findByIdentityNumberEquals(jobSeeker.getIdentityNumber())!= null) {
+			return new ErrorResult("Registered ID number");
 		}
 		
 		else {

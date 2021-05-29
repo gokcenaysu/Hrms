@@ -21,6 +21,7 @@ private VerificationService emailVerificationService;
 		this.emailVerificationService = emailVerificationService;
 	}
 	
+	
 	@PostMapping("/update/{verification}/{id}")
 	public Result verified(@RequestParam String randomVerify,@RequestParam int id) {
 		return emailVerificationService.isVerified(randomVerify, id);
