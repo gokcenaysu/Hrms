@@ -43,7 +43,9 @@ public class JobSeekerManager implements JobSeekerService{
 
 		if(jobSeeker.getFirstName().isEmpty() || jobSeeker.getLastName().isEmpty()
 				|| jobSeeker.getIdentityNumber().isEmpty() || jobSeeker.getBirthYear().isEmpty()
-				|| jobSeeker.getEmail().isEmpty() || jobSeeker.getPassword().isEmpty()) {
+				|| jobSeeker.getEmail().isEmpty() || jobSeeker.getPassword().isEmpty()
+				|| jobSeeker.getFirstName().isBlank() || jobSeeker.getLastName().isBlank()
+				|| jobSeeker.getPassword().isBlank()) {
 			return new ErrorResult("Fields cannot be left blank");
 		}
 		

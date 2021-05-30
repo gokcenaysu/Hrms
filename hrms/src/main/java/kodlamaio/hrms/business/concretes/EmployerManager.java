@@ -44,7 +44,8 @@ public class EmployerManager implements EmployerService{
 		
 		if(employer.getCompanyName().isEmpty() || employer.getWebsite().isEmpty()
 				|| employer.getPhoneNumber().isEmpty() || employer.getEmail().isEmpty() 
-				|| employer.getPassword().isEmpty()) {
+				|| employer.getPassword().isEmpty() || employer.getWebsite().isBlank() 
+				|| employer.getPassword().isBlank()) {
 			return new ErrorResult("Fields cannot be left blank");
 		}
 		
