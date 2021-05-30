@@ -15,7 +15,6 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobSeekerDao;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
-import kodlamaio.hrms.entities.dtos.JobSeekerDto;
 
 @Service
 public class JobSeekerManager implements JobSeekerService{
@@ -40,45 +39,45 @@ public class JobSeekerManager implements JobSeekerService{
 	}
 
 	@Override
-	public Result register(JobSeekerDto jobSeekerDto) {
+	public Result register(JobSeeker jobSeeker) {
 
-		if(jobSeekerDto.getFirstName().isEmpty() || jobSeekerDto.getLastName().isEmpty()
-				|| jobSeekerDto.getIdentityNumber().isEmpty() || jobSeekerDto.getBirthYear().isEmpty()
-				|| jobSeekerDto.getEmail().isEmpty() || jobSeekerDto.getPassword().isEmpty()) {
+		if(jobSeeker.getFirstName().isEmpty() || jobSeeker.getLastName().isEmpty()
+				|| jobSeeker.getIdentityNumber().isEmpty() || jobSeeker.getBirthYear().isEmpty()
+				|| jobSeeker.getEmail().isEmpty() || jobSeeker.getPassword().isEmpty()) {
 			return new ErrorResult("Fields cannot be left blank");
 		}
 		
-		if(!regexService.isFirstNameFormat(jobSeekerDto.getFirstName())) {
+		if(!regexService.isFirstNameFormat(jobSeeker.getFirstName())) {
 			return new ErrorResult("Please enter in name format");
 		}
 		
-		if(!regexService.isLastNameFormat(jobSeekerDto.getLastName())) {
+		if(!regexService.isLastNameFormat(jobSeeker.getLastName())) {
 			return new ErrorResult("Please enter in surname format");
 		}
 		
-		if(!regexService.isBirthYearFormat(jobSeekerDto.getBirthYear())) {
+		if(!regexService.isBirthYearFormat(jobSeeker.getBirthYear())) {
 			return new ErrorResult("Please enter in birth year format");
 		}
 		
-		if(!regexService.isEmailFormat(jobSeekerDto.getEmail())) {
+		if(!regexService.isEmailFormat(jobSeeker.getEmail())) {
 			return new ErrorResult("Please enter in e-mail format");
 		}
 		
-		if(!simulatedMernisService.checkMernis(jobSeekerDto.getFirstName(), jobSeekerDto.getLastName(), 
-				jobSeekerDto.getIdentityNumber(), jobSeekerDto.getBirthYear())) {
+		if(!simulatedMernisService.checkMernis(jobSeeker.getFirstName(), jobSeeker.getLastName(), 
+				jobSeeker.getIdentityNumber(), jobSeeker.getBirthYear())) {
 			return new ErrorResult("Authentication unsuccessful");
 		}
 		
-		if(jobSeekerDao.findByEmailEquals(jobSeekerDto.getEmail())!=null) {
+		if(jobSeekerDao.findByEmailEquals(jobSeeker.getEmail())!=null) {
 			return new ErrorResult("Registered e-mail");
 		}
 		
-		if(jobSeekerDao.findByIdentityNumberEquals(jobSeekerDto.getIdentityNumber())!= null) {
+		if(jobSeekerDao.findByIdentityNumberEquals(jobSeeker.getIdentityNumber())!= null) {
 			return new ErrorResult("Registered ID number");
 		}
 		
 		else {
-			this.jobSeekerDao.save(jobSeekerDto);
+			this.jobSeekerDao.save(jobSeeker);
 			return new SuccessResult("Your registration has been created successfully");			
 		}	
 	}
