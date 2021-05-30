@@ -47,8 +47,8 @@ public class JobPostingsController {
 	}
 	
 	@GetMapping("/getAllCompanyName")
-	public DataResult<List<JobPostingDto>> findByActivityStatusTrueAndCompanyName(@RequestParam String companyName){
-		return this.jobPostingService.findByActivityStatusAndCompanyName(companyName);
+	public DataResult<List<JobPostingDto>> findByActivityStatusTrueAndCompanyName(@RequestParam int employerId){
+		return this.jobPostingService.findByActivityStatusAndEmployer(employerId);
 	}
 	
 	@DeleteMapping("/delete")

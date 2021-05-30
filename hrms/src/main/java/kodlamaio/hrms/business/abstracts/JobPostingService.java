@@ -13,7 +13,7 @@ public interface JobPostingService {
 	Result delete(JobPosting jobPosting);
 	DataResult<List<JobPostingDto>> findByActivityStatus();
 	DataResult<List<JobPostingDto>> findByActivityStatusAndApplicationDeadline();
-	DataResult<List<JobPostingDto>> findByActivityStatusAndCompanyName(String companyName);
+	DataResult<List<JobPostingDto>> findByActivityStatusAndEmployer(int employerId);
 	
 
 }

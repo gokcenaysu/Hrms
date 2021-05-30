@@ -7,6 +7,7 @@ import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
+import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.VerificationDao;
 import kodlamaio.hrms.entities.concretes.Verification;
 
@@ -21,6 +22,17 @@ public class VerificationManager implements VerificationService{
 		this.verificationDao=verificationDao;
 	}
 
+	@Override
+	public Result sendActivationCode(String email, String activationCode) {
+		String activationLink = "(AuthContrellerLink)/activate?email=" + email + "&activationcode=" + activationCode;
+
+		System.out.println("Your activation code:  " + activationCode );
+		System.out.println("Please click the activation link to activate your account:  " + activationLink );
+		return new SuccessResult();
+	}
+	
+	
+/*
 	@Override
 	public void genereatedVerify(Verification verification, int id) {
 		
@@ -48,6 +60,6 @@ public class VerificationManager implements VerificationService{
 		else {
 			return new ErrorDataResult<Verification>("Unsuccessfull");
 		}
-	}
+	}*/
 	}
 

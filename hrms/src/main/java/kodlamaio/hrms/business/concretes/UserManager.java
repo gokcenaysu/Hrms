@@ -45,4 +45,20 @@ public class UserManager implements UserService{
 		return new SuccessResult("Deletion is successful");
 		}
 	}
+
+/*
+	@Override
+	public Result confirmActivation(String email, String activationCode) {
+		User user = this.userDao.findUserByEmail(email);
+		if(user != null) {
+			if(!user.isStatus()) {
+				if(user.getActivationCode().equals(activationCode) && !user.isDeleted()) {
+					user.setStatus(true);;
+					userDao.save(user);
+					return new SuccessResult("no");
+				}
+			}
+			return new SuccessResult("ok");
+		}
+	}*/
 }

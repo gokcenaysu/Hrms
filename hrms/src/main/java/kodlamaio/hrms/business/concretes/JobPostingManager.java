@@ -64,9 +64,9 @@ public class JobPostingManager implements JobPostingService{
 	}
 	
 	@Override
-	public DataResult<List<JobPostingDto>> findByActivityStatusAndCompanyName(String companyName) {
+	public DataResult<List<JobPostingDto>> findByActivityStatusAndEmployer(int employerId) {
 		return new SuccessDataResult<List<JobPostingDto>>
-		(this.dtoGenerator(this.jobPostingDao.findByActivityStatusAndEmployer_CompanyName(true,companyName)));		
+		(this.dtoGenerator(this.jobPostingDao.findByActivityStatusAndEmployer_Id(true,employerId)));		
 	}
 
 	@Override

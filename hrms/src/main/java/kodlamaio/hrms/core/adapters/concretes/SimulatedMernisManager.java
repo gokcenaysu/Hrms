@@ -6,6 +6,7 @@ import kodlamaio.hrms.core.adapters.abstracts.SimulatedMernisService;
 
 @Service
 public class SimulatedMernisManager implements SimulatedMernisService{
+	
 	@Override
 	public boolean checkMernis(String firstName, String lastName, String identityNumber, String birthYear) {
 		
@@ -16,11 +17,6 @@ public class SimulatedMernisManager implements SimulatedMernisService{
 		
 		if(identityNumber.length()!=11 || identityNumber.startsWith("0")) {
 			System.out.println("ID number is not 11 digits or starts with 0");
-			return false;
-		}
-		
-		if(birthYear.length()!=4) {
-			System.out.println("Year of birth is not 4 digits");
 			return false;
 		}
 		
