@@ -11,7 +11,6 @@ import kodlamaio.hrms.entities.concretes.JobPosting;
 public interface JobPostingDao extends JpaRepository<JobPosting, Integer>{
 	
 	 JobPosting findByPostingIdEquals(int positionId);
-	
 	 List<JobPosting> findByActivityStatus(boolean activityStatus);
 	 List<JobPosting> findByActivityStatusOrderByApplicationDeadline(boolean activityStatus);
 	 List<JobPosting> findByActivityStatusAndEmployer_CompanyName(boolean activityStatus, String companyName);

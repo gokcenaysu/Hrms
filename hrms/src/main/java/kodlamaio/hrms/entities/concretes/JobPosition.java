@@ -32,6 +32,6 @@ public class JobPosition {
 	@Column(name="position_name")
 	private String positionName;
 
-	@OneToMany(mappedBy="employer")
+	@OneToMany(mappedBy="jobPosition")
 	private List<JobPosting> jobPostings;
 }
