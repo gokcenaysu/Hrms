@@ -15,6 +15,7 @@ import kodlamaio.hrms.business.abstracts.JobPostingService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.JobPosting;
+import kodlamaio.hrms.entities.dtos.JobPostingDto;
 
 @RestController
 @RequestMapping("/api/job-postings")
@@ -36,17 +37,17 @@ public class JobPostingsController {
 	
 	
 	@GetMapping("/getAll")
-	public DataResult<List<JobPosting>> findByActivityStatus(){
+	public DataResult<List<JobPostingDto>> findByActivityStatus(){
 		return this.jobPostingService.findByActivityStatus();
 	}
 	
 	@GetMapping("/getAllApplicationDeadline")
-	public DataResult<List<JobPosting>> findByActivityStatusAndApplicationDeadline(){
+	public DataResult<List<JobPostingDto>> findByActivityStatusAndApplicationDeadline(){
 		return this.jobPostingService.findByActivityStatusAndApplicationDeadline();
 	}
 	
 	@GetMapping("/getAllCompanyName")
-	public DataResult<List<JobPosting>> findByActivityStatusTrueAndCompanyName(@RequestParam String companyName){
+	public DataResult<List<JobPostingDto>> findByActivityStatusTrueAndCompanyName(@RequestParam String companyName){
 		return this.jobPostingService.findByActivityStatusAndCompanyName(companyName);
 	}
 	

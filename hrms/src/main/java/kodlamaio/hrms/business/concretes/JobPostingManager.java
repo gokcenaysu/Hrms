@@ -1,7 +1,9 @@
 package kodlamaio.hrms.business.concretes;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,18 +15,30 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobPostingDao;
 import kodlamaio.hrms.entities.concretes.JobPosting;
+import kodlamaio.hrms.entities.dtos.JobPostingDto;
 
 @Service
 public class JobPostingManager implements JobPostingService{
 
 	private JobPostingDao jobPostingDao;
+	private ModelMapper modelMapper;
 	
 	@Autowired
-	public JobPostingManager(JobPostingDao jobPostingDao) {
+	public JobPostingManager(JobPostingDao jobPostingDao, ModelMapper modelMapper) {
 		super();
 		this.jobPostingDao = jobPostingDao;
+		this.modelMapper=modelMapper;
 	}
-
+	
+	private List<JobPostingDto> dtoGenerator(List<JobPosting> posting){
+		List<JobPostingDto> jobPostingDtos = new ArrayList <JobPostingDto>();
+		posting.forEach(item -> {
+			JobPostingDto dto = this.modelMapper.map(item, JobPostingDto.class);
+			dto.setCompanyName(item.getEmployer().getCompanyName());
+			jobPostingDtos.add(dto);
+		});
+		return jobPostingDtos;
+	}
 
 	@Override
 	public Result post(JobPosting jobPosting) {
@@ -38,25 +52,22 @@ public class JobPostingManager implements JobPostingService{
 	}
 
 	@Override
-	public DataResult<List<JobPosting>> findByActivityStatus() {
-		return new SuccessDataResult<List<JobPosting>>
-		(this.jobPostingDao.findByActivityStatus(true));
+	public DataResult<List<JobPostingDto>> findByActivityStatus() {
+		return new SuccessDataResult<List<JobPostingDto>>
+		(this.dtoGenerator(this.jobPostingDao.findByActivityStatus(true)));
 	}
 	
 	@Override
-	public DataResult<List<JobPosting>> findByActivityStatusAndApplicationDeadline() {
-		return new SuccessDataResult<List<JobPosting>>
-		(this.jobPostingDao.findByActivityStatusOrderByApplicationDeadline(true));
-		
+	public DataResult<List<JobPostingDto>> findByActivityStatusAndApplicationDeadline() {
+		return new SuccessDataResult<List<JobPostingDto>>
+		(this.dtoGenerator(this.jobPostingDao.findByActivityStatusOrderByApplicationDeadline(true)));	
 	}
 	
 	@Override
-	public DataResult<List<JobPosting>> findByActivityStatusAndCompanyName(String companyName) {
-		return new SuccessDataResult<List<JobPosting>>
-		(this.jobPostingDao.findByActivityStatusAndEmployer_CompanyName(true,companyName));
-		
+	public DataResult<List<JobPostingDto>> findByActivityStatusAndCompanyName(String companyName) {
+		return new SuccessDataResult<List<JobPostingDto>>
+		(this.dtoGenerator(this.jobPostingDao.findByActivityStatusAndEmployer_CompanyName(true,companyName)));		
 	}
-
 
 	@Override
 	public Result delete(JobPosting jobPosting) {
