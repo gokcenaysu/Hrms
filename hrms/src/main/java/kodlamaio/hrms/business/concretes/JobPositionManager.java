@@ -34,7 +34,7 @@ public class JobPositionManager implements JobPositionService{
 
 	@Override
 	public Result add(JobPosition jobPosition) {
-		if(jobPositionDao.findBypositionNameEquals(jobPosition.getPositionName())!=null) {
+		if(jobPositionDao.findByPositionNameEquals(jobPosition.getPositionName())!=null) {
 			return new ErrorResult("This job position is present");
 		}
 		
