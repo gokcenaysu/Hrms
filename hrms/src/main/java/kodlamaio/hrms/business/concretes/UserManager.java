@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.UserService;
 import kodlamaio.hrms.core.adapters.abstracts.RegexService;
+import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
@@ -17,14 +18,16 @@ import kodlamaio.hrms.entities.concretes.User;
 public class UserManager implements UserService{
 
 	private UserDao userDao;
+	private VerificationService verificationService;
 	private RegexService regexService;
 
 	
 	@Autowired
-	public UserManager(UserDao userDao, RegexService regexService) {
+	public UserManager(UserDao userDao, RegexService regexService, VerificationService verificationService) {
 		super();
 		this.userDao=userDao;
 		this.regexService=regexService;
+		this.verificationService=verificationService;
 	}
 	
 	

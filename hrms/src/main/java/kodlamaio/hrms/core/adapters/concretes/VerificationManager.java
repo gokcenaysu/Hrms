@@ -1,5 +1,7 @@
 package kodlamaio.hrms.core.adapters.concretes;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +25,11 @@ public class VerificationManager implements VerificationService{
 	}
 
 	@Override
-	public Result sendActivationCode(String email, String activationCode) {
-		String activationLink = "(AuthContrellerLink)/activate?email=" + email + "&activationcode=" + activationCode;
+	public Result verify(String email, int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		System.out.println("Your activation code:  " + activationCode );
-		System.out.println("Please click the activation link to activate your account:  " + activationLink );
-		return new SuccessResult();
 	}
 	
 	
@@ -61,5 +62,4 @@ public class VerificationManager implements VerificationService{
 			return new ErrorDataResult<Verification>("Unsuccessfull");
 		}
 	}*/
-	}
 

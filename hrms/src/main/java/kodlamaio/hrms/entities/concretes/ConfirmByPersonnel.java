@@ -2,6 +2,9 @@ package kodlamaio.hrms.entities.concretes;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -17,7 +20,11 @@ import lombok.NoArgsConstructor;
 @PrimaryKeyJoinColumn(name="employer_id", referencedColumnName = "user_id")
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConfirmByPersonnel extends Employer{
+public class ConfirmByPersonnel{
+	
+	@Id
+	@Column(name="employer_id")
+	private int userId;
 	
 	@Column(name="is_confirmed")
 	private boolean confirmed;
