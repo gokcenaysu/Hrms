@@ -1,4 +1,4 @@
-package kodlamaio.hrms.dataAccess.abstracts;
+package kodlamaio.hrms.core.dataAccess;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
