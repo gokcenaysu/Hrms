@@ -30,6 +30,7 @@ public class JobPostingManager implements JobPostingService{
 		this.modelMapper=modelMapper;
 	}
 	
+	
 	private List<JobPostingDto> dtoGenerator(List<JobPosting> posting){
 		List<JobPostingDto> jobPostingDtos = new ArrayList <JobPostingDto>();
 		posting.forEach(item -> {
@@ -40,6 +41,7 @@ public class JobPostingManager implements JobPostingService{
 		return jobPostingDtos;
 	}
 
+	
 	@Override
 	public Result post(JobPosting jobPosting) {
 		if(jobPostingDao.findByPostingIdEquals(jobPosting.getPostingId())!=null) {
@@ -49,6 +51,48 @@ public class JobPostingManager implements JobPostingService{
 			this.jobPostingDao.save(jobPosting);
 			return new SuccessResult("The job posting has been successfully added");
 		}
+	}
+	
+	@Override
+	public Result update(int postingId, boolean activityStatus) {
+        JobPosting jobPosting = getByPostingId(postingId).getData();
+        if(jobPosting.isActivityStatus() && !activityStatus) {
+            jobPosting.setActivityStatus(false);
+            this.jobPostingDao.save(jobPosting);
+            return new SuccessResult("Job posting deactivated");
+            }
+        
+        else if(!jobPosting.isActivityStatus() && !activityStatus){
+            return new ErrorResult("Job posting is already inactive");
+        	}
+        
+        else if(!jobPosting.isActivityStatus() && activityStatus) {
+            jobPosting.setActivityStatus(true);
+            this.jobPostingDao.save(jobPosting);
+            return new SuccessResult ("Job posting activated");
+        }
+        
+        else if(jobPosting.isActivityStatus() && activityStatus){
+       return new ErrorResult("Job posting is already active");
+        }
+        
+        return null;
+     }
+	    
+	@Override
+	public Result delete(int postingId) {
+		if(!getByPostingId(postingId).getData().isActivityStatus()) {
+			this.jobPostingDao.deleteById(postingId);
+			return new SuccessResult("Job posting removed");}
+			else {
+				return new ErrorResult("The job posting could not be removed because it is active");
+			}
+		}
+	
+	
+	@Override
+	public DataResult<JobPosting> getByPostingId(int postingId) {
+		return new SuccessDataResult<JobPosting>(this.jobPostingDao.getOne(postingId));
 	}
 
 	@Override
@@ -69,10 +113,5 @@ public class JobPostingManager implements JobPostingService{
 		(this.dtoGenerator(this.jobPostingDao.findByActivityStatusAndEmployer_Id(true,employerId)));		
 	}
 
-	@Override
-	public Result delete(JobPosting jobPosting) {
-		this.jobPostingDao.delete(jobPosting);
-		return new SuccessResult("Deletion is successful");
-		}
 	}
 

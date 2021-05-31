@@ -13,6 +13,7 @@ import kodlamaio.hrms.business.abstracts.JobSeekerService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
+import kodlamaio.hrms.entities.dtos.JobSeekerRegisterDto;
 
 @RestController
 @RequestMapping("/api/jobseekers")
@@ -30,9 +31,15 @@ public class JobSeekersController {
 	public DataResult<List<JobSeeker>> getAll(){
 		return this.jobSeekerService.getAll();
 	}
-	
+		
 	@PostMapping("/register")
 	public Result register(@RequestBody JobSeeker jobSeeker) {
 		return this.jobSeekerService.register(jobSeeker);
 	}
+	
+	@PostMapping("/update")
+	public Result update(@RequestBody JobSeeker jobSeeker, int userId) {
+		return this.jobSeekerService.update(jobSeeker, userId);
+	}
+
 }

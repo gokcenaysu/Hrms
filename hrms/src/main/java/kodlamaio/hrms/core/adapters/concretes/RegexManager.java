@@ -57,4 +57,13 @@ public class RegexManager implements RegexService{
 		
 	}
 
+	@Override
+	public boolean isPasswordFormat(String passwordFormat) {
+		String regex = "^[a-zA-Z\\d]{1,30}$";
+		
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(passwordFormat);
+		return matcher.matches();
+	}
+
 }

@@ -32,7 +32,6 @@ public class UserManager implements UserService{
 	public List<User> getAll() {
 		return this.userDao.findAll();
 	}
-
 	
 	@Override
 	public Result delete(User user) {
@@ -45,6 +44,7 @@ public class UserManager implements UserService{
 		return new SuccessResult("Deletion is successful");
 		}
 	}
+
 
 /*
 	@Override

@@ -56,6 +56,58 @@ public class EmployerManager implements EmployerService{
         }
         
         if(employerDao.findByEmailEquals(employer.getEmail())!=null) {
+        	return new ErrorResult("E-mail already registered");
+        }
+        
+        if(!regexService.isPhoneNumberFormat(employer.getPhoneNumber())) {
+        	return new ErrorResult("Invalid phone number");
+        }
+        
+        if(!regexService.isPasswordFormat(employer.getPassword())) {
+			return new ErrorResult("Enter a value in the range of 1-30");
+		}
+        
+        if(employerDao.findByWebsiteEquals(employer.getWebsite())!=null) {
+        	return new ErrorResult("Website already registered");
+        }
+        
+        if(employerDao.findByPhoneNumberEquals(employer.getPhoneNumber())!=null) {
+        	return new ErrorResult("Phone number already registered");
+        }
+        
+        else {
+			this.employerDao.save(employer);
+			return new SuccessResult("Your registration has been created successfully");
+	}
+  }
+	@Override
+	public Result confirm(Employer employer) {
+		if(!confirmByPersonnelService.isConfirmedByPersonnel(employer)) {
+			return new ErrorResult("Your required confirm by the personnel has not been completed");
+		}
+		else {
+		  return new SuccessResult("Your confirm by the personnel has been completed");
+		}
+	}
+
+
+	@Override
+	public Result update(Employer employer, int userId) {
+		Employer employers = getById(userId).getData();
+		if(employer.getCompanyName().isEmpty() || employer.getWebsite().isEmpty()
+				|| employer.getPhoneNumber().isEmpty() || employer.getEmail().isEmpty() 
+				|| employer.getPassword().isEmpty() || employer.getWebsite().isBlank() 
+				|| employer.getPassword().isBlank()) {
+			return new ErrorResult("Fields cannot be left blank");
+		}
+		
+		String email = employer.getEmail();
+        String[] emailSplit = email.split("@");
+        if(!emailSplit[1].equals(employer.getWebsite())) {
+            return new ErrorResult("Your e-mail address and domain do not match");
+        }
+        
+        if(employerDao.findByEmailEquals(employer.getEmail())!=null) {
         	return new ErrorResult("Registered e-mail");
         }
         
@@ -75,14 +127,11 @@ public class EmployerManager implements EmployerService{
 			this.employerDao.save(employer);
 			return new SuccessResult("Your registration has been created successfully");
 	}
-  }
+	}
+
+
 	@Override
-	public Result confirm(Employer employer) {
-		if(!confirmByPersonnelService.isConfirmedByPersonnel(employer)) {
-			return new ErrorResult("Your required confirm by the personnel has not been completed");
-		}
-		else {
-		  return new SuccessResult("Your confirm by the personnel has been completed");
-		}
+	public DataResult<Employer> getById(int userId) {
+		return new SuccessDataResult<Employer>(this.employerDao.getOne(userId));
 	}
 }

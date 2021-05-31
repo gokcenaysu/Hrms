@@ -7,4 +7,5 @@ public interface RegexService {
 	boolean isFirstNameFormat(String firstNameFormat);
 	boolean isLastNameFormat(String lastNameFormat);
 	boolean isBirthYearFormat(String birthYearFormat);
+	boolean isPasswordFormat(String passwordFormat);
 }

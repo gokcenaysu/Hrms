@@ -39,6 +39,5 @@ public class User {
 	
 	@Column(name="created_on")
     private LocalDateTime createdOn = LocalDateTime.now();
-	
 
 }

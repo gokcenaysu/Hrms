@@ -15,6 +15,7 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobSeekerDao;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
+import kodlamaio.hrms.entities.concretes.User;
 
 @Service
 public class JobSeekerManager implements JobSeekerService{
@@ -46,9 +47,57 @@ public class JobSeekerManager implements JobSeekerService{
 				|| jobSeeker.getEmail().isEmpty() || jobSeeker.getPassword().isEmpty()
 				|| jobSeeker.getFirstName().isBlank() || jobSeeker.getLastName().isBlank()
 				|| jobSeeker.getPassword().isBlank()) {
-			return new ErrorResult("Fields cannot be left blank");
+			return new ErrorResult("Fields cannot be empty");
 		}
 		
+		if(!regexService.isFirstNameFormat(jobSeeker.getFirstName())) {
+			return new ErrorResult("Your name must start with a capital letter");
+		}
+		
+		if(!regexService.isLastNameFormat(jobSeeker.getLastName())) {
+			return new ErrorResult("Your surname must start with a capital letter");
+		}
+		
+		if(!regexService.isBirthYearFormat(jobSeeker.getBirthYear())) {
+			return new ErrorResult("Please enter in birth year format");
+		}
+		
+		if(!regexService.isEmailFormat(jobSeeker.getEmail())) {
+			return new ErrorResult("Please enter in e-mail format");
+		}
+		
+		if(!regexService.isPasswordFormat(jobSeeker.getPassword())) {
+			return new ErrorResult("Enter a value in the range of 1-30");
+		}
+		
+		if(!simulatedMernisService.checkMernis(jobSeeker.getFirstName(), jobSeeker.getLastName(), 
+				jobSeeker.getIdentityNumber(), jobSeeker.getBirthYear())) {
+			return new ErrorResult("Authentication unsuccessful");
+		}
+		
+		if(jobSeekerDao.findByEmailEquals(jobSeeker.getEmail())!=null) {
+			return new ErrorResult("E-mail already registered");
+		}
+		
+		if(jobSeekerDao.findByIdentityNumberEquals(jobSeeker.getIdentityNumber())!= null) {
+			return new ErrorResult("ID number already registered");
+		}
+		
+		else {
+			this.jobSeekerDao.save(jobSeeker);
+			return new SuccessResult("Your registration has been created successfully");			
+		}	
+	}
+
+	@Override
+	public Result update(JobSeeker jobSeeker, int userId) {
+		JobSeeker jobSeekers = getById(userId).getData();
+		if(jobSeeker.getBirthYear().isEmpty() || jobSeeker.getFirstName().isEmpty()
+			|| jobSeeker.getLastName().isEmpty() || jobSeeker.getPassword().isEmpty()
+			|| jobSeeker.getEmail().isEmpty() || jobSeeker.getFirstName().isBlank()
+			|| jobSeeker.getLastName().isBlank() || jobSeeker.getPassword().isBlank()) {
+			return new ErrorResult("Fields cannot be empty");
+		}
 		if(!regexService.isFirstNameFormat(jobSeeker.getFirstName())) {
 			return new ErrorResult("Please enter in name format");
 		}
@@ -71,16 +120,22 @@ public class JobSeekerManager implements JobSeekerService{
 		}
 		
 		if(jobSeekerDao.findByEmailEquals(jobSeeker.getEmail())!=null) {
-			return new ErrorResult("Registered e-mail");
+			return new ErrorResult("E-mail already registered");
 		}
 		
 		if(jobSeekerDao.findByIdentityNumberEquals(jobSeeker.getIdentityNumber())!= null) {
-			return new ErrorResult("Registered ID number");
+			return new ErrorResult("ID number already registered");
 		}
 		
 		else {
 			this.jobSeekerDao.save(jobSeeker);
 			return new SuccessResult("Your registration has been created successfully");			
 		}	
+		
+	}
+
+	@Override
+	public DataResult<JobSeeker> getById(int userId) {
+		return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.getOne(userId));
 	}
 }

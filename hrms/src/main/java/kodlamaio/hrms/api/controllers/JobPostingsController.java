@@ -35,6 +35,16 @@ public class JobPostingsController {
 		return this.jobPostingService.post(jobPosting);
 	}
 	
+	@PostMapping("/update")
+	public Result update(@RequestBody int postingId, boolean activityStatus) {
+		return this.jobPostingService.update(postingId, activityStatus);
+	}
+	
+	@DeleteMapping("/delete")
+	public Result delete(@RequestParam int postingId) {
+		return this.jobPostingService.delete(postingId);
+	}
+	
 	
 	@GetMapping("/getAll")
 	public DataResult<List<JobPostingDto>> findByActivityStatus(){
@@ -51,8 +61,4 @@ public class JobPostingsController {
 		return this.jobPostingService.findByActivityStatusAndEmployer(employerId);
 	}
 	
-	@DeleteMapping("/delete")
-	public Result delete(@RequestParam JobPosting jobPosting) {
-		return this.jobPostingService.delete(jobPosting);
-	}
 }

@@ -10,4 +10,7 @@ public interface JobSeekerService {
 	
 	DataResult<List<JobSeeker>> getAll();
 	Result register(JobSeeker jobSeeker);
+	Result update(JobSeeker jobSeeker, int userId);
+	DataResult<JobSeeker> getById(int userId);
+
 }

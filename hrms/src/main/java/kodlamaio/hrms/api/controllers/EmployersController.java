@@ -35,4 +35,9 @@ public class EmployersController {
 	public Result register(@RequestBody Employer employer) {
 		return this.employerService.register(employer);
 	}
+	
+	@PostMapping("/update")
+	public Result update(@RequestBody Employer employer, int userId) {
+		return this.employerService.update(employer, userId);
+	}
 }
