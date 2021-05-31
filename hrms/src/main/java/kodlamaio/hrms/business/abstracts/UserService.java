@@ -10,8 +10,6 @@ public interface UserService {
 	List<User> getAll();
 	
 	Result delete(User user);
-
-
-	//Result confirmActivation(String email, String activationCode);
+	Result confirmActivation(String email, String activationCode);
 
 }

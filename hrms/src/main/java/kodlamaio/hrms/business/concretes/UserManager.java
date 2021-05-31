@@ -49,13 +49,13 @@ public class UserManager implements UserService{
 	}
 
 
-/*
+
 	@Override
 	public Result confirmActivation(String email, String activationCode) {
 		User user = this.userDao.findUserByEmail(email);
 		if(user != null) {
-			if(!user.isStatus()) {
-				if(user.getActivationCode().equals(activationCode) && !user.isDeleted()) {
+			if(!user.isStatus() && !user.getEmail().equals(activationCode)) {
+			//	if(user.getActivationCode().equals(activationCode) && !user.isDeleted()) {
 					user.setStatus(true);;
 					userDao.save(user);
 					return new SuccessResult("no");
@@ -63,5 +63,5 @@ public class UserManager implements UserService{
 			}
 			return new SuccessResult("ok");
 		}
-	}*/
-}
+	}
+

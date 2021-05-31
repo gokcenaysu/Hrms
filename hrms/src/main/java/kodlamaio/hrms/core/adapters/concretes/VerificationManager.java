@@ -47,10 +47,10 @@ public class VerificationManager implements VerificationService{
 		Verification verify = verificationDao.getOne(id);
 		if(verify.getEmailVerification().equals(randomVerify)) {
 			verify.setVerified(true);
-			return new SuccessDataResult<Verification>(this.verificationDao.save(verify),"Successfull");
+			return new SuccessDataResult<Verification>(this.verificationDao.save(verify),"Successful");
 		}
 		else {
-			return new ErrorDataResult<Verification>("Unsuccessfull");
+			return new ErrorDataResult<Verification>("Unsuccessful");
 		}
 	}
 }

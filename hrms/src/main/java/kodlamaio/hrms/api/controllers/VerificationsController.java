@@ -13,17 +13,12 @@ import kodlamaio.hrms.core.utilities.results.Result;
 @RequestMapping("/api/verifications")
 public class VerificationsController {
 
-private VerificationService emailVerificationService;
+private VerificationService verificationService;
 	
 	@Autowired
-	public VerificationsController(VerificationService emailVerificationService) {
+	public VerificationsController(VerificationService verificationService) {
 		super();
-		this.emailVerificationService = emailVerificationService;
+		this.verificationService = verificationService;
 	}
 	
-	/*
-	@PostMapping("/update/{verification}/{id}")
-	public Result verified(@RequestParam String randomVerify,@RequestParam int id) {
-		return emailVerificationService.isVerified(randomVerify, id);
-	}*/
 }
