@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kodlamaio.hrms.business.abstracts.UserService;
-import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.User;
 
@@ -21,13 +20,11 @@ import kodlamaio.hrms.entities.concretes.User;
 public class UsersController {
 
 	private UserService userService;
-	private VerificationService verificationService;
 	
 	@Autowired
-	public UsersController(UserService userService, VerificationService verificationService) {
+	public UsersController(UserService userService) {
 		super();
 		this.userService = userService;
-		this.verificationService=verificationService;
 	}
 
 
@@ -36,9 +33,9 @@ public class UsersController {
 		return this.userService.getAll();
 	}
 	
-	@PostMapping("/update/{verification}/{id}")
-	public Result verified(@RequestParam String randomVerify,@RequestParam int id) {
-		return verificationService.isVerified(randomVerify, id);
+	@PostMapping("/verification")
+	public Result emailVerification(@RequestParam User user, String confirmPassword) {
+		return this.userService.emailVerification(user, confirmPassword);
 	}
 	
 	@DeleteMapping("/delete")

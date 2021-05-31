@@ -5,6 +5,6 @@ import kodlamaio.hrms.entities.concretes.Verification;
 
 public interface VerificationService {
 
-	void genereatedVerify(Verification verification, int id);
-	Result isVerified(String emailVerify, int id);
+	Result save(Verification code);
+	String verifyCode();
 }

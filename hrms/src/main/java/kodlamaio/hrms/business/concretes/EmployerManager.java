@@ -1,5 +1,6 @@
 package kodlamaio.hrms.business.concretes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kodlamaio.hrms.business.abstracts.EmployerService;
 import kodlamaio.hrms.business.abstracts.ConfirmByPersonnelService;
 import kodlamaio.hrms.core.adapters.abstracts.RegexService;
+import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
@@ -15,21 +17,24 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.EmployerDao;
 import kodlamaio.hrms.entities.concretes.Employer;
+import kodlamaio.hrms.entities.concretes.Verification;
 
 @Service
 public class EmployerManager implements EmployerService{
 
 	private EmployerDao employerDao;
 	private RegexService regexService;
+	private VerificationService verificationService;
 	private ConfirmByPersonnelService confirmByPersonnelService;
 	
 	@Autowired
 	public EmployerManager(EmployerDao employerDao,  RegexService regexService,
-			ConfirmByPersonnelService confirmByPersonnelService) {
+			ConfirmByPersonnelService confirmByPersonnelService, VerificationService verificationService) {
 		super();
 		this.employerDao = employerDao;
 		this.confirmByPersonnelService = confirmByPersonnelService;
 		this.regexService=regexService;
+		this.verificationService=verificationService;
 	}
 
 	
@@ -76,12 +81,21 @@ public class EmployerManager implements EmployerService{
         }
         
         else {
+        	employer.setStatus(false);
 			this.employerDao.save(employer);
+			String code = verificationService.verifyCode();
+			verificationCode(code, employer.getId(), employer.getEmail());
 			return new SuccessResult("Your registration has been created successfully");
+	   }
 	}
-  }
+        
+        public void verificationCode(String code, int id, String email) {
+    		Verification verificationCode = new Verification(id, code, false, LocalDateTime.now());
+    		this.verificationService.save(verificationCode);
+    	}
+	
 	@Override
-	public Result confirm(Employer employer) {
+	public Result confirmByPersonnel(Employer employer) {
 		if(!confirmByPersonnelService.isConfirmedByPersonnel(employer)) {
 			return new ErrorResult("Your required confirm by the personnel has not been completed");
 		}

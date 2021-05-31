@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -20,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Table(name="verification")
 @EqualsAndHashCode(callSuper = false)
 @PrimaryKeyJoinColumn(name="user_id", referencedColumnName = "id")
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 public class Verification{
 	
@@ -36,5 +34,13 @@ public class Verification{
 	
 	@Column(name="verification_date")
 	private LocalDateTime verificationDate = LocalDateTime.now();
+
+	public Verification(int userId, String emailVerification, boolean isVerified, LocalDateTime verificationDate) {
+		super();
+		this.userId = userId;
+		this.emailVerification = emailVerification;
+		this.isVerified = isVerified;
+		this.verificationDate = verificationDate;
+	}
 
 }

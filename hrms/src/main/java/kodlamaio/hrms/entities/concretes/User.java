@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="users")
 @Inheritance(strategy = InheritanceType.JOINED)
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 public class User {
 	
@@ -39,5 +39,14 @@ public class User {
 	
 	@Column(name="created_on")
     private LocalDateTime createdOn = LocalDateTime.now();
+
+	public User(int id, String email, String password, boolean status, LocalDateTime createdOn) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.status = status;
+		this.createdOn = createdOn;
+	}
 
 }

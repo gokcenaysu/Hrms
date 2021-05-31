@@ -13,7 +13,6 @@ import kodlamaio.hrms.business.abstracts.JobSeekerService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
-import kodlamaio.hrms.entities.dtos.JobSeekerRegisterDto;
 
 @RestController
 @RequestMapping("/api/jobseekers")

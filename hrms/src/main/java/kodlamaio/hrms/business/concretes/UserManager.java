@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import kodlamaio.hrms.business.abstracts.UserService;
 import kodlamaio.hrms.core.adapters.abstracts.RegexService;
 import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
+import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
+import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.UserDao;
 import kodlamaio.hrms.entities.concretes.User;
@@ -51,17 +53,26 @@ public class UserManager implements UserService{
 
 
 	@Override
-	public Result confirmActivation(String email, String activationCode) {
-		User user = this.userDao.findUserByEmail(email);
-		if(user != null) {
-			if(!user.isStatus() && !user.getEmail().equals(activationCode)) {
-			//	if(user.getActivationCode().equals(activationCode) && !user.isDeleted()) {
-					user.setStatus(true);;
-					userDao.save(user);
-					return new SuccessResult("no");
-				}
-			}
-			return new SuccessResult("ok");
+	public Result emailVerification(User user, String activationCode) {
+		if(activationCode == null) {
+			return new ErrorResult("Cannot be blank");
+		}
+		if(!activationCode.equals(verificationService.verifyCode())) {
+			return new ErrorResult("Your verification code is wrong");
+		}
+		/*User users = getById(user.getId()).getData();
+		if(user.isStatus() &&) {
+			return new ErrorResult("not present");
+		}*/
+		else {
+			user.setStatus(true);
+			return new SuccessResult("Email verification has been successful");
 		}
 	}
+	
+	@Override
+	public DataResult<User> getById(int id) {
+		return new SuccessDataResult<User>(this.userDao.getOne(id));
+	}
+}
 

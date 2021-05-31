@@ -1,5 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kodlamaio.hrms.business.abstracts.JobSeekerService;
 import kodlamaio.hrms.core.adapters.abstracts.RegexService;
 import kodlamaio.hrms.core.adapters.abstracts.SimulatedMernisService;
+import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
@@ -16,21 +19,24 @@ import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobSeekerDao;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
 import kodlamaio.hrms.entities.concretes.User;
+import kodlamaio.hrms.entities.concretes.Verification;
 
 @Service
 public class JobSeekerManager implements JobSeekerService{
 
 	private JobSeekerDao jobSeekerDao;
 	private RegexService regexService;
+	private VerificationService verificationService;
 	private SimulatedMernisService simulatedMernisService;
 	
 	@Autowired
 	public JobSeekerManager(JobSeekerDao jobSeekerDao, RegexService regexService,
-			SimulatedMernisService simulatedMernisService) {
+			SimulatedMernisService simulatedMernisService, VerificationService verificationService) {
 		super();
 		this.jobSeekerDao = jobSeekerDao;
 		this.simulatedMernisService = simulatedMernisService;
 		this.regexService=regexService;
+		this.verificationService=verificationService;
 	}
 
 	@Override
@@ -84,9 +90,17 @@ public class JobSeekerManager implements JobSeekerService{
 		}
 		
 		else {
-			this.jobSeekerDao.save(jobSeeker);
-			return new SuccessResult("Your registration has been created successfully");			
+			jobSeeker.setStatus(false);
+			jobSeekerDao.save(jobSeeker);
+			String code = verificationService.verifyCode();
+			verificationCode(code, jobSeeker.getId(), jobSeeker.getEmail());
+			return new SuccessResult("Your registration has been created successfully");	
 		}	
+	}
+	
+	public void verificationCode(String code, int id, String email) {
+		Verification verificationCode = new Verification(id, code, false, LocalDateTime.now());
+		this.verificationService.save(verificationCode);
 	}
 
 	@Override
@@ -129,7 +143,7 @@ public class JobSeekerManager implements JobSeekerService{
 		
 		else {
 			this.jobSeekerDao.save(jobSeeker);
-			return new SuccessResult("Your registration has been created successfully");			
+			return new SuccessResult("Your registration has been created successfully");
 		}	
 		
 	}
