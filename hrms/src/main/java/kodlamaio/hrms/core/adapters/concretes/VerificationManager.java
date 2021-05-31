@@ -23,17 +23,8 @@ public class VerificationManager implements VerificationService{
 		super();
 		this.verificationDao=verificationDao;
 	}
-
-	@Override
-	public Result verify(String email, int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	}
 	
 	
-/*
 	@Override
 	public void genereatedVerify(Verification verification, int id) {
 		
@@ -61,5 +52,6 @@ public class VerificationManager implements VerificationService{
 		else {
 			return new ErrorDataResult<Verification>("Unsuccessfull");
 		}
-	}*/
+	}
+}
 
