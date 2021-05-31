@@ -1,4 +1,4 @@
-package kodlamaio.hrms.entities.concretes;
+package kodlamaio.hrms.core.entities;
 
 import java.time.LocalDateTime;
 
