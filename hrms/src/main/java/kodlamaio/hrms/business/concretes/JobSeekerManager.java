@@ -1,9 +1,9 @@
 package kodlamaio.hrms.business.concretes;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,32 +11,35 @@ import kodlamaio.hrms.business.abstracts.JobSeekerService;
 import kodlamaio.hrms.core.adapters.abstracts.RegexService;
 import kodlamaio.hrms.core.adapters.abstracts.SimulatedMernisService;
 import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
-import kodlamaio.hrms.core.entities.User;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobSeekerDao;
+import kodlamaio.hrms.entities.concretes.Employer;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
 import kodlamaio.hrms.entities.concretes.Verification;
+import kodlamaio.hrms.entities.dtos.JobSeekerRegisterDto;
 
 @Service
 public class JobSeekerManager implements JobSeekerService{
 
 	private JobSeekerDao jobSeekerDao;
 	private RegexService regexService;
+	private ModelMapper modelMapper;
 	private VerificationService verificationService;
 	private SimulatedMernisService simulatedMernisService;
 	
 	@Autowired
-	public JobSeekerManager(JobSeekerDao jobSeekerDao, RegexService regexService,
+	public JobSeekerManager(JobSeekerDao jobSeekerDao, RegexService regexService,ModelMapper modelMapper,
 			SimulatedMernisService simulatedMernisService, VerificationService verificationService) {
 		super();
 		this.jobSeekerDao = jobSeekerDao;
 		this.simulatedMernisService = simulatedMernisService;
 		this.regexService=regexService;
 		this.verificationService=verificationService;
+		this.modelMapper=modelMapper;
 	}
 
 	@Override
@@ -46,8 +49,10 @@ public class JobSeekerManager implements JobSeekerService{
 	}
 
 	@Override
-	public Result register(JobSeeker jobSeeker) {
+	public Result register(JobSeekerRegisterDto jobSeekerDto) {
 
+		JobSeeker jobSeeker = this.modelMapper.map(jobSeekerDto, JobSeeker.class);
+		
 		if(jobSeeker.getFirstName().isEmpty() || jobSeeker.getLastName().isEmpty()
 				|| jobSeeker.getIdentityNumber().isEmpty() || jobSeeker.getBirthYear().isEmpty()
 				|| jobSeeker.getEmail().isEmpty() || jobSeeker.getPassword().isEmpty()
@@ -81,11 +86,11 @@ public class JobSeekerManager implements JobSeekerService{
 			return new ErrorResult("Authentication unsuccessful");
 		}
 		
-		if(jobSeekerDao.findByEmailEquals(jobSeeker.getEmail())!=null) {
+		if(jobSeekerDao.getByEmailEquals(jobSeeker.getEmail())!=null) {
 			return new ErrorResult("E-mail already registered");
 		}
 		
-		if(jobSeekerDao.findByIdentityNumberEquals(jobSeeker.getIdentityNumber())!= null) {
+		if(jobSeekerDao.getByIdentityNumberEquals(jobSeeker.getIdentityNumber())!= null) {
 			return new ErrorResult("ID number already registered");
 		}
 		
@@ -104,8 +109,11 @@ public class JobSeekerManager implements JobSeekerService{
 	}
 
 	@Override
-	public Result update(JobSeeker jobSeeker, int userId) {
+	public Result update(JobSeekerRegisterDto jobSeekerDto, int userId) {
+		
+		JobSeeker jobSeeker = this.modelMapper.map(jobSeekerDto, JobSeeker.class);
 		JobSeeker jobSeekers = getById(userId).getData();
+		
 		if(jobSeeker.getBirthYear().isEmpty() || jobSeeker.getFirstName().isEmpty()
 			|| jobSeeker.getLastName().isEmpty() || jobSeeker.getPassword().isEmpty()
 			|| jobSeeker.getEmail().isEmpty() || jobSeeker.getFirstName().isBlank()
@@ -133,17 +141,19 @@ public class JobSeekerManager implements JobSeekerService{
 			return new ErrorResult("Authentication unsuccessful");
 		}
 		
-		if(jobSeekerDao.findByEmailEquals(jobSeeker.getEmail())!=null) {
+		if(jobSeekerDao.getByEmailEquals(jobSeeker.getEmail())!=null) {
 			return new ErrorResult("E-mail already registered");
 		}
 		
-		if(jobSeekerDao.findByIdentityNumberEquals(jobSeeker.getIdentityNumber())!= null) {
+		if(jobSeekerDao.getByIdentityNumberEquals(jobSeeker.getIdentityNumber())!= null) {
 			return new ErrorResult("ID number already registered");
 		}
 		
 		else {
-			this.jobSeekerDao.save(jobSeeker);
-			return new SuccessResult("Your registration has been created successfully");
+		/*	JobSeekerRegisterDto jobSeekerUpdate = jobSeekerDao.findAllById(userId);
+			jobSeekerUpdate.setEmail(null);*/
+			jobSeekerDao.save(jobSeekerDto);
+			return new SuccessResult("Has been updated successfully");
 		}	
 		
 	}

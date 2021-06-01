@@ -9,7 +9,8 @@ import kodlamaio.hrms.entities.dtos.JobSeekerRegisterDto;
 @Repository
 public interface JobSeekerDao extends JpaRepository<JobSeeker, Integer>{
 	
-	JobSeeker findByEmailEquals(String findEmail);
-	JobSeeker findByIdentityNumberEquals(String findIdentityNumber);
+	JobSeeker getByEmailEquals(String email);
+	JobSeeker getByIdentityNumberEquals(String identityNumber);
 	JobSeeker save(JobSeekerRegisterDto jobSeekerRegisterDto);
+	JobSeekerRegisterDto findAllById(int userId);
 }

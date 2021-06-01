@@ -3,6 +3,7 @@ package kodlamaio.hrms.business.concretes;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,23 +19,26 @@ import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.EmployerDao;
 import kodlamaio.hrms.entities.concretes.Employer;
 import kodlamaio.hrms.entities.concretes.Verification;
+import kodlamaio.hrms.entities.dtos.EmployerRegisterDto;
 
 @Service
 public class EmployerManager implements EmployerService{
 
 	private EmployerDao employerDao;
 	private RegexService regexService;
+	private ModelMapper modelMapper;
 	private VerificationService verificationService;
 	private ConfirmByPersonnelService confirmByPersonnelService;
 	
 	@Autowired
-	public EmployerManager(EmployerDao employerDao,  RegexService regexService,
+	public EmployerManager(EmployerDao employerDao,  RegexService regexService, ModelMapper modelMapper,
 			ConfirmByPersonnelService confirmByPersonnelService, VerificationService verificationService) {
 		super();
 		this.employerDao = employerDao;
 		this.confirmByPersonnelService = confirmByPersonnelService;
 		this.regexService=regexService;
 		this.verificationService=verificationService;
+		this.modelMapper=modelMapper;
 	}
 
 	
@@ -45,8 +49,10 @@ public class EmployerManager implements EmployerService{
 	}
 
 	@Override
-	public Result register(Employer employer) {
+	public Result register(EmployerRegisterDto employerDto) {
 		
+		Employer employer = this.modelMapper.map(employerDto, Employer.class);
+	
 		if(employer.getCompanyName().isEmpty() || employer.getWebsite().isEmpty()
 				|| employer.getPhoneNumber().isEmpty() || employer.getEmail().isEmpty() 
 				|| employer.getPassword().isEmpty() || employer.getWebsite().isBlank() 

@@ -7,7 +7,7 @@ import kodlamaio.hrms.entities.concretes.Employer;
 
 @Repository
 public interface EmployerDao extends JpaRepository<Employer, Integer>{
-
+	
 	Employer findByEmailEquals(String findEmail);
 	Employer findByWebsiteEquals(String findWebsite);
 	Employer findByPhoneNumberEquals(String findPhoneNumber);

@@ -2,6 +2,7 @@ package kodlamaio.hrms.business.concretes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,19 +33,12 @@ public class JobPostingManager implements JobPostingService{
 	
 	
 	private List<JobPostingDto> dtoGenerator(List<JobPosting> posting){
-		List<JobPostingDto> jobPostingDtos = new ArrayList <JobPostingDto>();
-		posting.forEach(item -> {
-			JobPostingDto dto = this.modelMapper.map(item, JobPostingDto.class);
-			dto.setCompanyName(item.getEmployer().getCompanyName());
-			jobPostingDtos.add(dto);
-		});
-		return jobPostingDtos;
-	}
+		return posting.stream().map(adv-> modelMapper.map(adv,JobPostingDto.class)).collect(Collectors.toList());	}
 
 	
 	@Override
 	public Result post(JobPosting jobPosting) {
-		if(jobPostingDao.findByPostingIdEquals(jobPosting.getPostingId())!=null) {
+		if(jobPostingDao.getByPostingIdEquals(jobPosting.getPostingId())!=null) {
 			return new ErrorResult("This job posting is present");
 		}
 		else {
@@ -96,21 +90,21 @@ public class JobPostingManager implements JobPostingService{
 	}
 
 	@Override
-	public DataResult<List<JobPostingDto>> findByActivityStatus() {
+	public DataResult<List<JobPostingDto>> getByActivityStatus() {
 		return new SuccessDataResult<List<JobPostingDto>>
-		(this.dtoGenerator(this.jobPostingDao.findByActivityStatus(true)));
+		(this.dtoGenerator(this.jobPostingDao.getByActivityStatus(true)));
 	}
 	
 	@Override
-	public DataResult<List<JobPostingDto>> findByActivityStatusAndApplicationDeadline() {
+	public DataResult<List<JobPostingDto>> getByActivityStatusAndApplicationDeadline() {
 		return new SuccessDataResult<List<JobPostingDto>>
-		(this.dtoGenerator(this.jobPostingDao.findByActivityStatusOrderByApplicationDeadline(true)));	
+		(this.dtoGenerator(this.jobPostingDao.getByActivityStatusOrderByApplicationDeadline(true)));	
 	}
 	
 	@Override
-	public DataResult<List<JobPostingDto>> findByActivityStatusAndEmployer(int employerId) {
+	public DataResult<List<JobPostingDto>> getByActivityStatusAndEmployer(int employerId) {
 		return new SuccessDataResult<List<JobPostingDto>>
-		(this.dtoGenerator(this.jobPostingDao.findByActivityStatusAndEmployer_Id(true,employerId)));		
+		(this.dtoGenerator(this.jobPostingDao.getByActivityStatusAndEmployer_Id(true,employerId)));		
 	}
 
 	}

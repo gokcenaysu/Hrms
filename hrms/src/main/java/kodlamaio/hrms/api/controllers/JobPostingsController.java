@@ -48,17 +48,17 @@ public class JobPostingsController {
 	
 	@GetMapping("/getAll")
 	public DataResult<List<JobPostingDto>> findByActivityStatus(){
-		return this.jobPostingService.findByActivityStatus();
+		return this.jobPostingService.getByActivityStatus();
 	}
 	
 	@GetMapping("/getAllApplicationDeadline")
 	public DataResult<List<JobPostingDto>> findByActivityStatusAndApplicationDeadline(){
-		return this.jobPostingService.findByActivityStatusAndApplicationDeadline();
+		return this.jobPostingService.getByActivityStatusAndApplicationDeadline();
 	}
 	
 	@GetMapping("/getAllCompanyName")
 	public DataResult<List<JobPostingDto>> findByActivityStatusTrueAndCompanyName(@RequestParam int employerId){
-		return this.jobPostingService.findByActivityStatusAndEmployer(employerId);
+		return this.jobPostingService.getByActivityStatusAndEmployer(employerId);
 	}
 	
 }
