@@ -1,6 +1,7 @@
 package kodlamaio.hrms.core.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
+import kodlamaio.hrms.entities.concretes.Link;
+import kodlamaio.hrms.entities.concretes.Photograph;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -39,6 +42,13 @@ public class User {
 	
 	@Column(name="created_on")
     private LocalDateTime createdOn = LocalDateTime.now();
+	
+	@OneToMany(mappedBy="user")
+	private List<Link> link;
+	
+	@OneToMany(mappedBy="user")
+	private List<Photograph> photograph;
+
 
 	public User(int id, String email, String password, boolean status, LocalDateTime createdOn) {
 		super();

@@ -12,5 +12,4 @@ public interface JobSeekerDao extends JpaRepository<JobSeeker, Integer>{
 	JobSeeker getByEmailEquals(String email);
 	JobSeeker getByIdentityNumberEquals(String identityNumber);
 	JobSeeker save(JobSeekerRegisterDto jobSeekerRegisterDto);
-	JobSeekerRegisterDto findAllById(int userId);
 }

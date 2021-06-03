@@ -1,13 +1,13 @@
 package kodlamaio.hrms.entities.concretes;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,25 +19,22 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="cities")
+@Table(name="languages")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","cvLanguage"})
 @AllArgsConstructor
 @NoArgsConstructor
-public class City {
+public class Language {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="city_id")
-	private int cityId;
+	@Column(name="language_id")
+	private int languageId;
 	
-	@Column(name="city_name")
-	private String cityName;
+	@Column(name="language_name")
+	private String languageName;
 	
-	@OneToMany(mappedBy="city")
-	@JsonIgnore()
-	private List<JobPosting> jobPostings;
-	
-	@OneToMany(mappedBy="city")
-	@JsonIgnore()
-	private List<University> university;
-
+	@OneToOne(mappedBy = "language")
+	private CvLanguage cvLanguage;
+	 
 }
+

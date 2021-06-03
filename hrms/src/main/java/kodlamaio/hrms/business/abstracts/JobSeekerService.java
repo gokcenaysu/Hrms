@@ -1,6 +1,9 @@
 package kodlamaio.hrms.business.abstracts;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
@@ -12,7 +15,8 @@ public interface JobSeekerService {
 
 	DataResult<List<JobSeeker>> getAll();
 	Result register(JobSeekerRegisterDto jobSeekerDto);
-	Result update(JobSeekerRegisterDto jobSeekerDto, int userId);
 	DataResult<JobSeeker> getById(int userId);
+	
+//	Result update(JobSeekerRegisterDto jobSeekerDto, int userId);
 
 }

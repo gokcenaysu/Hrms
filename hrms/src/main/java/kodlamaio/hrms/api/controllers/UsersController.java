@@ -41,6 +41,5 @@ public class UsersController {
 	@DeleteMapping("/delete")
 	public Result delete(@RequestBody User user) {
 		return this.userService.delete(user);
-		
 	}
 }

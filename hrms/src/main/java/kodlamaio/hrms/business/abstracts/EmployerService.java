@@ -12,6 +12,8 @@ public interface EmployerService {
 	DataResult<List<Employer>> getAll();
 	Result register(EmployerRegisterDto employer);
 	Result confirmByPersonnel(Employer employer);
-	Result update(Employer employer, int userId);
 	DataResult<Employer> getById(int userId);
+	
+	
+	//Result update(Employer employer, int userId);
 }

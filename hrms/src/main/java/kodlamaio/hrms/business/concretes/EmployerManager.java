@@ -66,7 +66,7 @@ public class EmployerManager implements EmployerService{
             return new ErrorResult("Your e-mail address and domain do not match");
         }
         
-        if(employerDao.findByEmailEquals(employer.getEmail())!=null) {
+        if(employerDao.getByEmailEquals(employer.getEmail())!=null) {
         	return new ErrorResult("E-mail already registered");
         }
         
@@ -78,11 +78,11 @@ public class EmployerManager implements EmployerService{
 			return new ErrorResult("Enter a value in the range of 1-30");
 		}
         
-        if(employerDao.findByWebsiteEquals(employer.getWebsite())!=null) {
+        if(employerDao.getByWebsiteEquals(employer.getWebsite())!=null) {
         	return new ErrorResult("Website already registered");
         }
         
-        if(employerDao.findByPhoneNumberEquals(employer.getPhoneNumber())!=null) {
+        if(employerDao.getByPhoneNumberEquals(employer.getPhoneNumber())!=null) {
         	return new ErrorResult("Phone number already registered");
         }
         
@@ -111,6 +111,7 @@ public class EmployerManager implements EmployerService{
 	}
 
 
+	/*
 	@Override
 	public Result update(Employer employer, int userId) {
 		Employer employers = getById(userId).getData();
@@ -127,7 +128,7 @@ public class EmployerManager implements EmployerService{
             return new ErrorResult("Your e-mail address and domain do not match");
         }
         
-        if(employerDao.findByEmailEquals(employer.getEmail())!=null) {
+        if(employerDao.getByEmailEquals(employer.getEmail())!=null) {
         	return new ErrorResult("Registered e-mail");
         }
         
@@ -135,11 +136,11 @@ public class EmployerManager implements EmployerService{
         	return new ErrorResult("Invalid phone number");
         }
         
-        if(employerDao.findByWebsiteEquals(employer.getWebsite())!=null) {
+        if(employerDao.getByWebsiteEquals(employer.getWebsite())!=null) {
         	return new ErrorResult("Registered website");
         }
         
-        if(employerDao.findByPhoneNumberEquals(employer.getPhoneNumber())!=null) {
+        if(employerDao.getByPhoneNumberEquals(employer.getPhoneNumber())!=null) {
         	return new ErrorResult("Registered phone number");
         }
         
@@ -147,7 +148,7 @@ public class EmployerManager implements EmployerService{
 			this.employerDao.save(employer);
 			return new SuccessResult("Your registration has been created successfully");
 	}
-	}
+	}*/
 
 
 	@Override

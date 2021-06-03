@@ -1,46 +1,76 @@
 package kodlamaio.hrms.business.concretes;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kodlamaio.hrms.business.abstracts.JobSeekerService;
 import kodlamaio.hrms.core.adapters.abstracts.RegexService;
 import kodlamaio.hrms.core.adapters.abstracts.SimulatedMernisService;
 import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
+import kodlamaio.hrms.dataAccess.abstracts.CvExperienceDao;
 import kodlamaio.hrms.dataAccess.abstracts.JobSeekerDao;
-import kodlamaio.hrms.entities.concretes.Employer;
+import kodlamaio.hrms.dataAccess.abstracts.LanguageDao;
+import kodlamaio.hrms.dataAccess.abstracts.LinkDao;
+import kodlamaio.hrms.dataAccess.abstracts.PhotographDao;
+import kodlamaio.hrms.dataAccess.abstracts.CvSkillDao;
+import kodlamaio.hrms.dataAccess.abstracts.UniversityDao;
+import kodlamaio.hrms.entities.concretes.CvExperience;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
+import kodlamaio.hrms.entities.concretes.Language;
+import kodlamaio.hrms.entities.concretes.Link;
+import kodlamaio.hrms.entities.concretes.Photograph;
+import kodlamaio.hrms.entities.concretes.CvSkill;
+import kodlamaio.hrms.entities.concretes.University;
 import kodlamaio.hrms.entities.concretes.Verification;
 import kodlamaio.hrms.entities.dtos.JobSeekerRegisterDto;
 
 @Service
 public class JobSeekerManager implements JobSeekerService{
 
-	private JobSeekerDao jobSeekerDao;
-	private RegexService regexService;
 	private ModelMapper modelMapper;
+	private JobSeekerDao jobSeekerDao;
+	private LanguageDao languageDao;
+	private CvExperienceDao experienceDao;
+	private LinkDao linkDao;
+	private PhotographDao photographDao;
+	private CvSkillDao programmingLanguageDao;
+	private UniversityDao universityDao;
 	private VerificationService verificationService;
 	private SimulatedMernisService simulatedMernisService;
-	
+	private RegexService regexService;
+
 	@Autowired
-	public JobSeekerManager(JobSeekerDao jobSeekerDao, RegexService regexService,ModelMapper modelMapper,
-			SimulatedMernisService simulatedMernisService, VerificationService verificationService) {
+	public JobSeekerManager(ModelMapper modelMapper, CvExperienceDao experienceDao,
+			JobSeekerDao jobSeekerDao, LanguageDao languageDao, VerificationService verificationService,
+			LinkDao linkDao, PhotographDao photographDao, CvSkillDao programmingLanguageDao,
+			UniversityDao universityDao, RegexService regexService, SimulatedMernisService simulatedMernisService) {
 		super();
+		this.modelMapper = modelMapper;
 		this.jobSeekerDao = jobSeekerDao;
-		this.simulatedMernisService = simulatedMernisService;
+		this.languageDao = languageDao;
+		this.linkDao = linkDao;
+		this.photographDao = photographDao;
+		this.programmingLanguageDao = programmingLanguageDao;
+		this.experienceDao=experienceDao;
+		this.universityDao=universityDao;
 		this.regexService=regexService;
+		this.simulatedMernisService=simulatedMernisService;
 		this.verificationService=verificationService;
-		this.modelMapper=modelMapper;
+
 	}
+
 
 	@Override
 	public DataResult<List<JobSeeker>> getAll() {
@@ -107,7 +137,9 @@ public class JobSeekerManager implements JobSeekerService{
 		Verification verificationCode = new Verification(id, code, false, LocalDateTime.now());
 		this.verificationService.save(verificationCode);
 	}
-
+	
+	
+/*
 	@Override
 	public Result update(JobSeekerRegisterDto jobSeekerDto, int userId) {
 		
@@ -150,16 +182,13 @@ public class JobSeekerManager implements JobSeekerService{
 		}
 		
 		else {
-		/*	JobSeekerRegisterDto jobSeekerUpdate = jobSeekerDao.findAllById(userId);
-			jobSeekerUpdate.setEmail(null);*/
 			jobSeekerDao.save(jobSeekerDto);
 			return new SuccessResult("Has been updated successfully");
-		}	
+		}	*/
 		
-	}
 
 	@Override
-	public DataResult<JobSeeker> getById(int userId) {
-		return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.getOne(userId));
+	public DataResult<JobSeeker> getById(int jobSeekerId) {
+		return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.getOne(jobSeekerId));
 	}
 }
