@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,25 +21,28 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="cv_languages")
+@Table(name = "cv_languages")
 @AllArgsConstructor
 @NoArgsConstructor
 public class CvLanguage {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="cv_language_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cv_language_id")
 	private int cvLanguageId;
-	
-	@Column(name="language_level")
+
+	@Column(name = "language_level")
+	@Min(1)
+	@Max(5)
 	private int languageLevel;
-	
+
 	@OneToOne()
-    @JoinColumn(name = "language_id")
-    private Language language;
-	
+	@NotBlank(message = "The field must be filled")
+	@JoinColumn(name = "language_id")
+	private Language language;
+
 	@ManyToOne()
-	@JoinColumn(name = "cv_id")
-    @JsonIgnore()
-    private CurriculumVitae curriculumVitae;
+	@JoinColumn(name = "user_id")
+	@JsonIgnore()
+	private JobSeeker jobSeeker;
 }

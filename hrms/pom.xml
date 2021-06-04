@@ -69,7 +69,17 @@
             <groupId>com.cloudinary</groupId>
             <artifactId>cloudinary-http44</artifactId>
             <version>1.29.0</version>
-        </dependency>
+        </dependency> 
+    <dependency> 
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>6.0.13.Final</version>
+    </dependency> 
+    <dependency> 
+        <groupId>org.glassfish</groupId>
+        <artifactId>javax.el</artifactId>
+        <version>3.0.0</version>
+     </dependency>
 	</dependencies>
 	
 	

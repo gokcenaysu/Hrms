@@ -13,17 +13,17 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="hrms_personnels")
+@Table(name = "hrms_personnels")
 @EqualsAndHashCode(callSuper = false)
-@PrimaryKeyJoinColumn(name="user_id", referencedColumnName = "id")
+@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
 @AllArgsConstructor
 @NoArgsConstructor
-public class HrmsPersonnel extends User{
+public class HrmsPersonnel extends User {
 
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
-	
-	@Column(name="last_name")
+
+	@Column(name = "last_name")
 	private String lastName;
-	
+
 }

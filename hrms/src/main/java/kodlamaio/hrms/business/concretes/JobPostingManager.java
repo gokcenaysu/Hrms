@@ -1,6 +1,5 @@
 package kodlamaio.hrms.business.concretes;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,72 +18,68 @@ import kodlamaio.hrms.entities.concretes.JobPosting;
 import kodlamaio.hrms.entities.dtos.JobPostingDto;
 
 @Service
-public class JobPostingManager implements JobPostingService{
+public class JobPostingManager implements JobPostingService {
 
 	private JobPostingDao jobPostingDao;
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	public JobPostingManager(JobPostingDao jobPostingDao, ModelMapper modelMapper) {
 		super();
 		this.jobPostingDao = jobPostingDao;
-		this.modelMapper=modelMapper;
+		this.modelMapper = modelMapper;
 	}
-	
-	
-	private List<JobPostingDto> dtoGenerator(List<JobPosting> posting){
-		return posting.stream().map(adv-> modelMapper.map(adv,JobPostingDto.class)).collect(Collectors.toList());
-		}
 
-	
+	private List<JobPostingDto> dtoGenerator(List<JobPosting> posting) {
+		return posting.stream().map(adv -> modelMapper.map(adv, JobPostingDto.class)).collect(Collectors.toList());
+	}
+
 	@Override
 	public Result post(JobPosting jobPosting) {
-		if(jobPostingDao.getByPostingIdEquals(jobPosting.getPostingId())!=null) {
+		if (jobPostingDao.getByPostingIdEquals(jobPosting.getPostingId()) != null) {
 			return new ErrorResult("This job posting is present");
-		}
-		else {
+		} else {
 			this.jobPostingDao.save(jobPosting);
 			return new SuccessResult("The job posting has been successfully added");
 		}
 	}
-	
+
 	@Override
 	public Result update(int postingId, boolean activityStatus) {
-        JobPosting jobPosting = getByPostingId(postingId).getData();
-        if(jobPosting.isActivityStatus() && !activityStatus) {
-            jobPosting.setActivityStatus(false);
-            this.jobPostingDao.save(jobPosting);
-            return new SuccessResult("Job posting deactivated");
-            }
-        
-        else if(!jobPosting.isActivityStatus() && !activityStatus){
-            return new ErrorResult("Job posting is already inactive");
-        	}
-        
-        else if(!jobPosting.isActivityStatus() && activityStatus) {
-            jobPosting.setActivityStatus(true);
-            this.jobPostingDao.save(jobPosting);
-            return new SuccessResult ("Job posting activated");
-        }
-        
-        else if(jobPosting.isActivityStatus() && activityStatus){
-       return new ErrorResult("Job posting is already active");
-        }
-        
-        return null;
-     }
-	    
+		JobPosting jobPosting = getByPostingId(postingId).getData();
+		if (jobPosting.isActivityStatus() && !activityStatus) {
+			jobPosting.setActivityStatus(false);
+			this.jobPostingDao.save(jobPosting);
+			return new SuccessResult("Job posting deactivated");
+		}
+
+		else if (!jobPosting.isActivityStatus() && !activityStatus) {
+			return new ErrorResult("Job posting is already inactive");
+		}
+
+		else if (!jobPosting.isActivityStatus() && activityStatus) {
+			jobPosting.setActivityStatus(true);
+			this.jobPostingDao.save(jobPosting);
+			return new SuccessResult("Job posting activated");
+		}
+
+		else if (jobPosting.isActivityStatus() && activityStatus) {
+			return new ErrorResult("Job posting is already active");
+		}
+
+		return null;
+	}
+
 	@Override
 	public Result delete(int postingId) {
-		if(!getByPostingId(postingId).getData().isActivityStatus()) {
+		if (!getByPostingId(postingId).getData().isActivityStatus()) {
 			this.jobPostingDao.deleteById(postingId);
-			return new SuccessResult("Job posting removed");}
-			else {
-				return new ErrorResult("The job posting could not be removed because it is active");
-			}
+			return new SuccessResult("Job posting removed");
+		} else {
+			return new ErrorResult("The job posting could not be removed because it is active");
 		}
-	
-	
+	}
+
 	@Override
 	public DataResult<JobPosting> getByPostingId(int postingId) {
 		return new SuccessDataResult<JobPosting>(this.jobPostingDao.getOne(postingId));
@@ -92,21 +87,20 @@ public class JobPostingManager implements JobPostingService{
 
 	@Override
 	public DataResult<List<JobPostingDto>> getByActivityStatus() {
-		return new SuccessDataResult<List<JobPostingDto>>
-		(this.dtoGenerator(this.jobPostingDao.getByActivityStatus(true)));
+		return new SuccessDataResult<List<JobPostingDto>>(
+				this.dtoGenerator(this.jobPostingDao.getByActivityStatus(true)));
 	}
-	
+
 	@Override
 	public DataResult<List<JobPostingDto>> getByActivityStatusAndApplicationDeadline() {
-		return new SuccessDataResult<List<JobPostingDto>>
-		(this.dtoGenerator(this.jobPostingDao.getByActivityStatusOrderByApplicationDeadline(true)));	
+		return new SuccessDataResult<List<JobPostingDto>>(
+				this.dtoGenerator(this.jobPostingDao.getByActivityStatusOrderByApplicationDeadline(true)));
 	}
-	
+
 	@Override
 	public DataResult<List<JobPostingDto>> getByActivityStatusAndEmployer(int employerId) {
-		return new SuccessDataResult<List<JobPostingDto>>
-		(this.dtoGenerator(this.jobPostingDao.getByActivityStatusAndEmployer_Id(true,employerId)));		
+		return new SuccessDataResult<List<JobPostingDto>>(
+				this.dtoGenerator(this.jobPostingDao.getByActivityStatusAndEmployer_Id(true, employerId)));
 	}
 
-	}
-
+}

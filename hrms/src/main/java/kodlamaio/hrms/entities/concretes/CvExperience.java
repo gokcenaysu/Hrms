@@ -9,8 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,32 +21,34 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="cv_experiences")
+@Table(name = "cv_experiences")
 @AllArgsConstructor
 @NoArgsConstructor
 public class CvExperience {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="experience_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "experience_id")
 	private int experienceId;
 
-	@Column(name="company")
+	@Column(name = "company")
+	@NotBlank(message = "The field must be filled")
 	private String company;
-	
-	@Column(name="job_beginning_date")
+
+	@NotNull(message = "The field must be filled")
+	@Column(name = "job_beginning_date")
 	private LocalDate jobBeginnigDate;
-	
-	@Column(name="job_ending_date")
+
+	@Column(name = "job_ending_date")
 	private LocalDate jobEndingDate;
 
-	@Column(name="position_name")
+	@NotBlank(message = "The field must be filled")
+	@Column(name = "position_name")
 	private String positionName;
-	
+
 	@ManyToOne()
-	@JoinColumn(name = "cv_id")
-    @JsonIgnore()
-	private CurriculumVitae curriculumVitae;
-	
+	@JoinColumn(name = "user_id")
+	@JsonIgnore()
+	private JobSeeker jobSeeker;
 
 }

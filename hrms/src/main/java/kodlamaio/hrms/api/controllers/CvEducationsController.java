@@ -11,23 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 import kodlamaio.hrms.business.abstracts.CvEducationService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.entities.concretes.CvEducation;
-import kodlamaio.hrms.entities.concretes.Employer;
 
 @RestController
-@RequestMapping("/api/cv-education")
+@RequestMapping("/api/cv-educations")
 public class CvEducationsController {
 
 	private CvEducationService cvEducationService;
-	
+
 	@Autowired
 	public CvEducationsController(CvEducationService cvEducationService) {
 		super();
 		this.cvEducationService = cvEducationService;
 	}
-
-
+	
 	@GetMapping("/getGraduationDateDesc")
-	public DataResult<List<CvEducation>> getAllByJobSeekerIdOrderByGraduationYear(@RequestParam int jobSeekerId){
-		return this.cvEducationService.getAllByJobSeekerIdOrderByGraduationYear(jobSeekerId);
+	public DataResult<List<CvEducation>> getByJobSeekerIdOrderByGraduationDateDesc(@RequestParam int jobSeekerId) {
+		return this.cvEducationService.getAllByJobSeekerIdOrderByGraduationDateDesc(jobSeekerId);
 	}
 }

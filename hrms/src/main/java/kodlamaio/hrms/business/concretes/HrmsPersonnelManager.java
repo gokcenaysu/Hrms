@@ -12,20 +12,18 @@ import kodlamaio.hrms.dataAccess.abstracts.HrmsPersonnelDao;
 import kodlamaio.hrms.entities.concretes.HrmsPersonnel;
 
 @Service
-public class HrmsPersonnelManager implements HrmsPersonnelService{
+public class HrmsPersonnelManager implements HrmsPersonnelService {
 
 	private HrmsPersonnelDao hrmsPersonnelDao;
-	
+
 	@Autowired
 	public HrmsPersonnelManager(HrmsPersonnelDao hrmsPersonnelDao) {
-		this.hrmsPersonnelDao=hrmsPersonnelDao;
+		this.hrmsPersonnelDao = hrmsPersonnelDao;
 	}
+
 	@Override
 	public DataResult<List<HrmsPersonnel>> getAll() {
-		return new SuccessDataResult<List<HrmsPersonnel>>
-		(this.hrmsPersonnelDao.findAll(),"Listed");
+		return new SuccessDataResult<List<HrmsPersonnel>>(this.hrmsPersonnelDao.findAll(), "Listed");
 	}
-	
-	
 
 }

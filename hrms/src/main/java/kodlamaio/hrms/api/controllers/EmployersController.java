@@ -26,21 +26,19 @@ public class EmployersController {
 		super();
 		this.employerService = employerService;
 	}
-	
+
 	@GetMapping("/getall")
-	public DataResult<List<Employer>> getAll(){
+	public DataResult<List<Employer>> getAll() {
 		return this.employerService.getAll();
 	}
-	
+
 	@PostMapping("/register")
 	public Result register(@RequestBody EmployerRegisterDto employer) {
 		return this.employerService.register(employer);
 	}
-	
-	
+
 	/*
-	@PostMapping("/update")
-	public Result update(@RequestBody Employer employer, int userId) {
-		return this.employerService.update(employer, userId);
-	}*/
+	 * @PostMapping("/update") public Result update(@RequestBody Employer employer,
+	 * int userId) { return this.employerService.update(employer, userId); }
+	 */
 }

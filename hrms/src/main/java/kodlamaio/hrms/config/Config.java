@@ -10,6 +10,7 @@ import com.cloudinary.utils.ObjectUtils;
 import kodlamaio.hrms.core.imageUploaders.CloudinaryService;
 import kodlamaio.hrms.core.imageUploaders.ImageService;
 
+
 @Configuration
 public class Config {
 	
@@ -26,7 +27,7 @@ public class Config {
                 "api_secret", "qXZGvlycICDV5FBK3b4KEO0Oz4M"));
     }
 
-    
+    @Bean
     public ImageService imageService(){
         return new CloudinaryService();
     }

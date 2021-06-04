@@ -13,35 +13,33 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="universities")
+@Table(name = "universities")
 @AllArgsConstructor
 @NoArgsConstructor
 public class University {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="university_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "university_id")
 	private int universityId;
-	
-	@Column(name="university_name")
+
+	@Column(name = "university_name")
 	private String universityName;
-	
+
 	@OneToOne(mappedBy = "university")
-    private CvEducation cvEducation;
-	
+	private transient CvEducation cvEducation;
+
 	@OneToMany(mappedBy = "university")
 	private List<Faculty> Faculty;
-	
+
 	@ManyToOne()
-	@JoinColumn(name="city_id")
+	@JoinColumn(name = "city_id")
 	private City city;
 
 }

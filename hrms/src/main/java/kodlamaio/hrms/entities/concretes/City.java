@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,24 +18,24 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="cities")
+@Table(name = "cities")
 @AllArgsConstructor
 @NoArgsConstructor
 public class City {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="city_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "city_id")
 	private int cityId;
-	
-	@Column(name="city_name")
+
+	@Column(name = "city_name")
 	private String cityName;
-	
-	@OneToMany(mappedBy="city")
+
+	@OneToMany(mappedBy = "city")
 	@JsonIgnore()
 	private List<JobPosting> jobPostings;
-	
-	@OneToMany(mappedBy="city")
+
+	@OneToMany(mappedBy = "city")
 	@JsonIgnore()
 	private List<University> university;
 

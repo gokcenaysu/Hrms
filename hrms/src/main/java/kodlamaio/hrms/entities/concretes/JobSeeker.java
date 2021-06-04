@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -19,13 +18,13 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="jobseekers")
+@Table(name = "jobseekers")
 @EqualsAndHashCode(callSuper = false)
-@PrimaryKeyJoinColumn(name="user_id", referencedColumnName = "id")
+@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
 @AllArgsConstructor
 @NoArgsConstructor
-public class JobSeeker extends User{
-	
+public class JobSeeker extends User {
+
 	@Column(name = "first_name")
 	private String firstName;
 
@@ -37,10 +36,33 @@ public class JobSeeker extends User{
 
 	@Column(name = "birth_year")
 	private String birthYear;
-	
-	@OneToOne(mappedBy = "jobSeeker")
-	@JsonIgnore()
-	private CurriculumVitae curriculumVitae;
 
+	@OneToMany(mappedBy = "jobSeeker")
+	@JsonIgnore()
+	private List<CvEducation> cvEducation;
+
+	@OneToMany(mappedBy = "jobSeeker")
+	@JsonIgnore()
+	private List<CvLanguage> cvLanguage;
+
+	@OneToMany(mappedBy = "jobSeeker")
+	@JsonIgnore()
+	private List<CvSkill> cvSkill;
+
+	@OneToMany(mappedBy = "jobSeeker")
+	@JsonIgnore()
+	private List<CvExperience> cvExperience;
+
+	@OneToMany(mappedBy = "jobSeeker")
+	@JsonIgnore()
+	private List<CvPrewriting> cvPrewriting;
+
+	@OneToMany(mappedBy = "jobSeeker")
+	@JsonIgnore()
+	private List<Link> link;
+
+	@OneToMany(mappedBy = "jobSeeker")
+	@JsonIgnore()
+	private List<Photograph> photograph;
 
 }

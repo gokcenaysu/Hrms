@@ -20,26 +20,25 @@ import kodlamaio.hrms.core.utilities.results.Result;
 public class UsersController {
 
 	private UserService userService;
-	
+
 	@Autowired
 	public UsersController(UserService userService) {
 		super();
 		this.userService = userService;
 	}
 
-
 	@GetMapping("/getall")
-	public List<User> getAll(){
+	public List<User> getAll() {
 		return this.userService.getAll();
 	}
-	
+
 	@PostMapping("/verification")
 	public Result emailVerification(@RequestParam User user, String confirmPassword) {
 		return this.userService.emailVerification(user, confirmPassword);
 	}
-	
+
 	@DeleteMapping("/delete")
-	public Result delete(@RequestBody User user) {
-		return this.userService.delete(user);
+	public Result delete(@RequestBody User user, @RequestParam int id) {
+		return this.userService.delete(user, id);
 	}
 }

@@ -13,6 +13,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import kodlamaio.hrms.entities.concretes.Link;
 import kodlamaio.hrms.entities.concretes.Photograph;
 import lombok.Data;
@@ -20,35 +22,28 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 //@AllArgsConstructor
 @NoArgsConstructor
 public class User {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private int id;
-	
-	@Column(name="email")
-	private String email;
-	
-	@Column(name="password")
-	private String password;
-	
-	@Column(name="status")
-	private boolean status;
-	
-	@Column(name="created_on")
-    private LocalDateTime createdOn = LocalDateTime.now();
-	
-	@OneToMany(mappedBy="user")
-	private List<Link> link;
-	
-	@OneToMany(mappedBy="user")
-	private List<Photograph> photograph;
 
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "password")
+	private String password;
+
+	@Column(name = "status")
+	private boolean status;
+
+	@Column(name = "created_on")
+	private LocalDateTime createdOn = LocalDateTime.now();
 
 	public User(int id, String email, String password, boolean status, LocalDateTime createdOn) {
 		super();

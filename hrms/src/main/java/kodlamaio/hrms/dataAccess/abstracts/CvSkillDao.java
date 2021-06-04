@@ -8,5 +8,5 @@ import kodlamaio.hrms.entities.concretes.CvSkill;
 
 public interface CvSkillDao extends JpaRepository<CvSkill, Integer>{
 
-	List<CvSkill> getAllByCurriculumVitae(int cvId);
+	List<CvSkill> getAllByJobSeekerId(int jobSeekerId);
 }

@@ -8,12 +8,14 @@ import kodlamaio.hrms.entities.concretes.Employer;
 import kodlamaio.hrms.entities.dtos.EmployerRegisterDto;
 
 public interface EmployerService {
-	
+
 	DataResult<List<Employer>> getAll();
+
 	Result register(EmployerRegisterDto employer);
+
 	Result confirmByPersonnel(Employer employer);
+
 	DataResult<Employer> getById(int userId);
-	
-	
-	//Result update(Employer employer, int userId);
+
+	// Result update(Employer employer, int userId);
 }

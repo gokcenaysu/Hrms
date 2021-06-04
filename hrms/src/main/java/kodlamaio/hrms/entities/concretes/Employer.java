@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -20,28 +18,27 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="employers")
+@Table(name = "employers")
 @EqualsAndHashCode(callSuper = false)
-@PrimaryKeyJoinColumn(name="user_id", referencedColumnName = "id")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler","jobPostings"})
+@PrimaryKeyJoinColumn(name = "user_id", referencedColumnName = "id")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "jobPostings" })
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employer extends User{
+public class Employer extends User {
 
-	//@Column(name="user_id")
-	//private int userId;
-	
-	@Column(name="company_name")
+	// @Column(name="user_id")
+	// private int userId;
+
+	@Column(name = "company_name")
 	private String companyName;
-	
-	@Column(name="website")
+
+	@Column(name = "website")
 	private String website;
-	
-	@Column(name="phone_number")
+
+	@Column(name = "phone_number")
 	private String phoneNumber;
-	
-	@OneToMany(mappedBy="employer")
+
+	@OneToMany(mappedBy = "employer")
 	private List<JobPosting> jobPostings;
 
-	
 }

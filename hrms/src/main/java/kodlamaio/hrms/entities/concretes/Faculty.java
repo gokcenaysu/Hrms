@@ -18,26 +18,26 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="faculties")
+@Table(name = "faculties")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Faculty {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="faculty_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "faculty_id")
 	private int facultyId;
-	
-	@Column(name="faculty_name")
+
+	@Column(name = "faculty_name")
 	private String facultyName;
-	
-	@Column(name="status")
+
+	@Column(name = "status")
 	private int status;
-	
-	@OneToMany(mappedBy="faculty")
+
+	@OneToMany(mappedBy = "faculty")
 	private List<Section> section;
-	
+
 	@ManyToOne()
 	@JoinColumn(name = "university_id")
-    private University university;
+	private University university;
 }

@@ -17,46 +17,46 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="job_postings")
+@Table(name = "job_postings")
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobPosting {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="posting_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "posting_id")
 	private int postingId;
-	
-	@Column(name="job_definition")
+
+	@Column(name = "job_definition")
 	private String jobDefinition;
-	
-	@Column(name="min_salary")
+
+	@Column(name = "min_salary")
 	private double minSalary;
-	
-	@Column(name="max_salary")
+
+	@Column(name = "max_salary")
 	private double maxSalary;
-	
-	@Column(name="open_position_number")
+
+	@Column(name = "open_position_number")
 	private int openPositionNumber;
-	
-	@Column(name="application_deadline")
+
+	@Column(name = "application_deadline")
 	private String applicationDeadline;
-	
-	@Column(name="posting_date")
+
+	@Column(name = "posting_date")
 	private LocalDateTime postingDate = LocalDateTime.now();
-	
-	@Column(name="activity_status")
+
+	@Column(name = "activity_status")
 	private boolean activityStatus;
-	
+
 	@ManyToOne()
-	@JoinColumn(name="employer_id")
+	@JoinColumn(name = "employer_id")
 	private Employer employer;
-	
+
 	@ManyToOne()
-	@JoinColumn(name="position_id")
+	@JoinColumn(name = "position_id")
 	private JobPosition jobPosition;
-	
+
 	@ManyToOne()
-	@JoinColumn(name="city_id")
+	@JoinColumn(name = "city_id")
 	private City city;
 }

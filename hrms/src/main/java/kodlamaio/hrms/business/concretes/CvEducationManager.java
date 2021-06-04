@@ -1,7 +1,9 @@
 package kodlamaio.hrms.business.concretes;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,36 +14,45 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.CvEducationDao;
 import kodlamaio.hrms.entities.concretes.CvEducation;
+import kodlamaio.hrms.entities.dtos.CreateCvDto;
 
 @Service
-public class CvEducationManager implements CvEducationService{
-	
-	 private final CvEducationDao cvEducationDao;
+public class CvEducationManager implements CvEducationService {
 
-	    @Autowired
-	    public CvEducationManager(CvEducationDao cvEducationDao) {
-	        this.cvEducationDao = cvEducationDao;
-	    }
+	private CvEducationDao cvEducationDao;
+	private ModelMapper modelMapper;
 
-	    @Override
-	    public Result addAll(List<CvEducation> cvEducation) {
-	        cvEducationDao.saveAll(cvEducation);
-	        return new SuccessResult();
-	    }
+	@Autowired
+	public CvEducationManager(CvEducationDao cvEducationDao, ModelMapper modelMapper) {
+		this.cvEducationDao = cvEducationDao;
+		this.modelMapper = modelMapper;
+	}
 
-	    @Override
-	    public Result add(CvEducation candidateEducation) {
-	        this.cvEducationDao.save(candidateEducation);
-	        return new SuccessResult();
-	    }
+	private List<CreateCvDto> dtoGenerator(List<CvEducation> posting) {
+		return posting.stream().map(adv -> modelMapper.map(adv, CreateCvDto.class)).collect(Collectors.toList());
+	}
 
-	    @Override
-	    public DataResult<List<CvEducation>> getAll() {
-	        return new SuccessDataResult<>(this.cvEducationDao.findAll());
-	    }
+	@Override
+	public Result addAll(List<CvEducation> cvEducation) {
+		cvEducationDao.saveAll(cvEducation);
+		return new SuccessResult();
+	}
 
-	    @Override
-	    public DataResult<List<CvEducation>> getAllByJobSeekerIdOrderByGraduationYear(int jobSeekerId) {
-	        return new SuccessDataResult<>(this.cvEducationDao.getAllByCvEduIdOrderByGraduationDate(jobSeekerId), "Listed");
-	    }
+	@Override
+	public Result add(CreateCvDto createCvDto) {
+		CvEducation cvEducation = this.modelMapper.map(createCvDto, CvEducation.class);
+		this.cvEducationDao.save(cvEducation);
+		return new SuccessResult();
+	}
+
+	@Override
+	public DataResult<List<CvEducation>> getAll() {
+		return new SuccessDataResult<>(this.cvEducationDao.findAll());
+	}
+
+	@Override
+	public DataResult<List<CvEducation>> getAllByJobSeekerIdOrderByGraduationDateDesc(int jobSeekerId) {
+		return new SuccessDataResult<>(this.cvEducationDao.getAllByJobSeekerIdOrderByGraduationDateDesc(jobSeekerId),
+				"Listed");
+	}
 }

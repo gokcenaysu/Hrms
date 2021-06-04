@@ -1,5 +1,7 @@
 package kodlamaio.hrms.entities.concretes;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,22 +21,25 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="links")
+@Table(name = "links")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Link {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="link_id")
-	private int cvLinkId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "link_id")
+	private int linkId;
+
+	@NotBlank(message = "The field must be filled")
+	@Column(name = "link_address")
+	private String linkAddress;
 	
-	@Column(name="link")
-	private String link;
+	@Column(name="created_on")
+	private LocalDateTime createdOn = LocalDateTime.now();
 	
 	@ManyToOne()
-	@JoinColumn(name="user_id")
-	@JsonIgnore()
-	private User user;
+	@JoinColumn(name = "user_id")
+	private JobSeeker jobSeeker;
 
 }

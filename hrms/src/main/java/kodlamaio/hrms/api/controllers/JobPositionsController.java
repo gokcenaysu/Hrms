@@ -18,26 +18,25 @@ import kodlamaio.hrms.entities.concretes.JobPosition;
 @RestController
 @RequestMapping("/api/job-positions")
 public class JobPositionsController {
-	
+
 	private JobPositionService jobPositionService;
-	
+
 	@Autowired
 	public JobPositionsController(JobPositionService jobPositionService) {
 		super();
 		this.jobPositionService = jobPositionService;
 	}
 
-
 	@GetMapping("/getall")
-	public DataResult<List<JobPosition>> getAll(){
+	public DataResult<List<JobPosition>> getAll() {
 		return this.jobPositionService.getAll();
 	}
-	
+
 	@PostMapping("/add")
 	public Result add(@RequestBody JobPosition jobPosition) {
 		return this.jobPositionService.add(jobPosition);
 	}
-	
+
 	@DeleteMapping("/delete")
 	public Result delete(@RequestBody JobPosition jobPosition) {
 		return this.jobPositionService.delete(jobPosition);

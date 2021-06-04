@@ -1,7 +1,5 @@
 package kodlamaio.hrms.entities.concretes;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,23 +15,23 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="sections")
+@Table(name = "sections")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Section {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="section_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "section_id")
 	private int sectionId;
-	
-	@Column(name="section_name")
+
+	@Column(name = "section_name")
 	private String sectionName;
-	
-	@Column(name="status")
+
+	@Column(name = "status")
 	private int status;
-	
+
 	@ManyToOne()
-	@JoinColumn(name="faculty_id")
+	@JoinColumn(name = "faculty_id")
 	private Faculty faculty;
 }

@@ -22,10 +22,10 @@ public class HrmsPersonnelsController {
 		super();
 		this.hrmsPersonnelService = hrmsPersonnelService;
 	}
-	
+
 	@GetMapping("/getall")
-	public DataResult<List<HrmsPersonnel>> getAll(){
-		
+	public DataResult<List<HrmsPersonnel>> getAll() {
+
 		return this.hrmsPersonnelService.getAll();
 	}
 }

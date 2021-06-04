@@ -1,11 +1,9 @@
 package kodlamaio.hrms.business.concretes;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import kodlamaio.hrms.business.abstracts.UserService;
 import kodlamaio.hrms.core.adapters.abstracts.RegexService;
@@ -13,13 +11,10 @@ import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
 import kodlamaio.hrms.core.dataAccess.UserDao;
 import kodlamaio.hrms.core.entities.User;
 import kodlamaio.hrms.core.utilities.results.DataResult;
-import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
-import kodlamaio.hrms.entities.concretes.JobSeeker;
-import kodlamaio.hrms.entities.concretes.Photograph;
 
 @Service
 public class UserManager implements UserService{
@@ -44,10 +39,9 @@ public class UserManager implements UserService{
 	}
 	
 	@Override
-	public Result delete(User user) {
+	public Result delete(User user, int id) {
 		if(!regexService.isEmailFormat(user.getEmail())) {
 			return new ErrorResult("Deletion is unsuccessful. Please enter in e-mail format");
-
 		}
 		else {
 		this.userDao.delete(user);
@@ -67,7 +61,7 @@ public class UserManager implements UserService{
 		}
 		User users = getById(user.getId()).getData();
 		if(userDao.getById(users.getId())==null) {
-			return new ErrorResult("not present");
+			return new ErrorResult("Not present");
 		}
 		else {
 			user.setStatus(true);

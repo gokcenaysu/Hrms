@@ -15,41 +15,39 @@ import kodlamaio.hrms.dataAccess.abstracts.JobPositionDao;
 import kodlamaio.hrms.entities.concretes.JobPosition;
 
 @Service
-public class JobPositionManager implements JobPositionService{
-	
+public class JobPositionManager implements JobPositionService {
+
 	private JobPositionDao jobPositionDao;
-	
+
 	@Autowired
 	public JobPositionManager(JobPositionDao jobPositionDao) {
 		super();
 		this.jobPositionDao = jobPositionDao;
 	}
-	
 
 	@Override
 	public DataResult<List<JobPosition>> getAll() {
-		return new SuccessDataResult<List<JobPosition>>
-		(this.jobPositionDao.findAll(),"Listed");
+		return new SuccessDataResult<List<JobPosition>>(this.jobPositionDao.findAll(), "Listed");
 	}
 
 	@Override
 	public Result add(JobPosition jobPosition) {
-		if(jobPositionDao.getByPositionNameEquals(jobPosition.getPositionName())!=null) {
+		if (jobPositionDao.getByPositionNameEquals(jobPosition.getPositionName()) != null) {
 			return new ErrorResult("This job position is present");
 		}
-		
-		if(jobPosition.getPositionName().isEmpty()) {
+
+		if (jobPosition.getPositionName().isEmpty()) {
 			return new ErrorResult("Enter the position name");
 		}
-		
+
 		else {
 			this.jobPositionDao.save(jobPosition);
 			return new SuccessResult("The job position has been successfully added");
 		}
 	}
-	
+
 	@Override
-	public Result delete(JobPosition  jobPosition) {
+	public Result delete(JobPosition jobPosition) {
 		this.jobPositionDao.delete(jobPosition);
 		return new SuccessResult("Deletion is successful");
 	}

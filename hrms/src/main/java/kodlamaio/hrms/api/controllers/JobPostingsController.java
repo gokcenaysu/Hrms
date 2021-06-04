@@ -28,37 +28,35 @@ public class JobPostingsController {
 		super();
 		this.jobPostingService = jobPostingService;
 	}
-	
-	
+
 	@PostMapping("/post")
 	public Result post(@RequestBody JobPosting jobPosting) {
 		return this.jobPostingService.post(jobPosting);
 	}
-	
+
 	@PostMapping("/update")
 	public Result update(@RequestBody int postingId, boolean activityStatus) {
 		return this.jobPostingService.update(postingId, activityStatus);
 	}
-	
+
 	@DeleteMapping("/delete")
 	public Result delete(@RequestParam int postingId) {
 		return this.jobPostingService.delete(postingId);
 	}
-	
-	
+
 	@GetMapping("/getAll")
-	public DataResult<List<JobPostingDto>> findByActivityStatus(){
+	public DataResult<List<JobPostingDto>> findByActivityStatus() {
 		return this.jobPostingService.getByActivityStatus();
 	}
-	
+
 	@GetMapping("/getAllApplicationDeadline")
-	public DataResult<List<JobPostingDto>> findByActivityStatusAndApplicationDeadline(){
+	public DataResult<List<JobPostingDto>> findByActivityStatusAndApplicationDeadline() {
 		return this.jobPostingService.getByActivityStatusAndApplicationDeadline();
 	}
-	
+
 	@GetMapping("/getAllCompanyName")
-	public DataResult<List<JobPostingDto>> findByActivityStatusTrueAndCompanyName(@RequestParam int employerId){
+	public DataResult<List<JobPostingDto>> findByActivityStatusTrueAndCompanyName(@RequestParam int employerId) {
 		return this.jobPostingService.getByActivityStatusAndEmployer(employerId);
 	}
-	
+
 }

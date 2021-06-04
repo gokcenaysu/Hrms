@@ -1,6 +1,5 @@
 package kodlamaio.hrms.entities.concretes;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -18,22 +18,23 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="cv_skills")
+@Table(name = "cv_skills")
 @AllArgsConstructor
 @NoArgsConstructor
 public class CvSkill {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="skill_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "skill_id")
 	private int programmingLanguageId;
-	
-	@Column(name="programming_language")
+
+	@NotBlank(message = "The field must be filled")
+	@Column(name = "programming_language")
 	private String programmingLanguage;
-	
+
 	@ManyToOne()
-	@JoinColumn(name = "cv_id")
-    @JsonIgnore()
-	private CurriculumVitae curriculumVitae;
-	
+	@JoinColumn(name = "user_id")
+	@JsonIgnore()
+	private JobSeeker jobSeeker;
+
 }

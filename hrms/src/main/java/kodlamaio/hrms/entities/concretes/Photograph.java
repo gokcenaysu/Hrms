@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,28 +21,26 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="photographs")
+@Table(name = "photographs")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Photograph {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="photograph_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "photograph_id")
 	private int photographId;
-	
-	@Column(name="photograph_link")
+
+	@NotBlank(message = "The field must be filled")
+	@Column(name = "photograph_link")
 	private String photographLink;
-	
-	@Column(name="created_on")
-	private LocalDateTime createdOn=LocalDateTime.now();
-	 
-	@Column(name="updated_on")
-	private LocalDateTime updatedOn = LocalDateTime.now();
-	 
+
+	@Column(name = "created_on")
+	private LocalDateTime createdOn = LocalDateTime.now();
+
 	@ManyToOne()
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	@JsonIgnore()
-	private User user;
+	private JobSeeker jobSeeker;
 
 }

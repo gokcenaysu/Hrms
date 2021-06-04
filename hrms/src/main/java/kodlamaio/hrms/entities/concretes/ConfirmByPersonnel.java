@@ -14,17 +14,17 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="confirm_by_personnel")
+@Table(name = "confirm_by_personnel")
 @EqualsAndHashCode(callSuper = false)
-@PrimaryKeyJoinColumn(name="employer_id", referencedColumnName = "user_id")
+@PrimaryKeyJoinColumn(name = "employer_id", referencedColumnName = "user_id")
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConfirmByPersonnel{
-	
+public class ConfirmByPersonnel {
+
 	@Id
-	@Column(name="employer_id")
+	@Column(name = "employer_id")
 	private int userId;
-	
-	@Column(name="is_confirmed")
+
+	@Column(name = "is_confirmed")
 	private boolean confirmed;
 }
