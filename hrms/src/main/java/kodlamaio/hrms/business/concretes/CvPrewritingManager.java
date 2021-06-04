@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.CvPrewritingService;
+import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
+import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.CvPrewritingDao;
 import kodlamaio.hrms.entities.concretes.CvPrewriting;
@@ -41,6 +43,11 @@ public class CvPrewritingManager implements CvPrewritingService {
 		CvPrewriting cvPrewriting = this.modelMapper.map(createCvDto, CvPrewriting.class);
 		this.cvPrewritingDao.save(cvPrewriting);
 		return new SuccessResult();
+	}
+
+	@Override
+	public DataResult<List<CvPrewriting>> getAllByJobSeekerId(int id) {
+		return new SuccessDataResult<>(this.cvPrewritingDao.getAllByJobSeekerId(id));
 	}
 
 }

@@ -64,7 +64,7 @@ public class LinkManager implements LinkService {
 
 	@Override
 	public DataResult<List<Link>> getAllByJobSeekerId(int jobSeekerId) {
-		return new SuccessDataResult<>(this.linkDao.getAllByUserId(jobSeekerId));
+		return new SuccessDataResult<>(this.linkDao.getAllByLinkId(jobSeekerId));
 	}
 
 	@Override

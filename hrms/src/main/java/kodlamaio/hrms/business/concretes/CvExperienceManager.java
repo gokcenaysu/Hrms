@@ -55,4 +55,9 @@ public class CvExperienceManager implements CvExperienceService {
 		return new SuccessDataResult<>(this.cvExperienceDao.getAllByJobSeekerIdOrderByJobEndingDateDesc(jobSeekerId));
 	}
 
+	@Override
+	public DataResult<List<CvExperience>> getAllByJobSeekerId(int id) {
+		return new SuccessDataResult<>(this.cvExperienceDao.getAllByJobSeekerId(id));
+	}
+
 }

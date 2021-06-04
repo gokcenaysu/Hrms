@@ -7,7 +7,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kodlamaio.hrms.business.abstracts.CvEducationService;
+import kodlamaio.hrms.business.abstracts.CvExperienceService;
+import kodlamaio.hrms.business.abstracts.CvLanguageService;
+import kodlamaio.hrms.business.abstracts.CvPrewritingService;
 import kodlamaio.hrms.business.abstracts.JobSeekerService;
+import kodlamaio.hrms.business.abstracts.LinkService;
+import kodlamaio.hrms.business.abstracts.PhotographService;
 import kodlamaio.hrms.core.adapters.abstracts.RegexService;
 import kodlamaio.hrms.core.adapters.abstracts.SimulatedMernisService;
 import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
@@ -16,15 +22,11 @@ import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
-import kodlamaio.hrms.dataAccess.abstracts.CvExperienceDao;
 import kodlamaio.hrms.dataAccess.abstracts.JobSeekerDao;
-import kodlamaio.hrms.dataAccess.abstracts.LanguageDao;
-import kodlamaio.hrms.dataAccess.abstracts.LinkDao;
-import kodlamaio.hrms.dataAccess.abstracts.PhotographDao;
 import kodlamaio.hrms.dataAccess.abstracts.CvSkillDao;
-import kodlamaio.hrms.dataAccess.abstracts.UniversityDao;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
 import kodlamaio.hrms.entities.concretes.Verification;
+import kodlamaio.hrms.entities.dtos.CreateCvDto;
 import kodlamaio.hrms.entities.dtos.JobSeekerRegisterDto;
 
 @Service
@@ -32,34 +34,36 @@ public class JobSeekerManager implements JobSeekerService {
 
 	private ModelMapper modelMapper;
 	private JobSeekerDao jobSeekerDao;
-	private LanguageDao languageDao;
-	private CvExperienceDao experienceDao;
-	private LinkDao linkDao;
-	private PhotographDao photographDao;
-	private CvSkillDao programmingLanguageDao;
-	private UniversityDao universityDao;
+	private CvLanguageService cvLanguageService;
+	private CvExperienceService cvExperienceService;
+	private LinkService linkService;
+	private PhotographService photographService;
+	private CvSkillDao cvSkillService;
+	private CvPrewritingService cvPrewritingService;
+	private CvEducationService cvEducationService;
 	private VerificationService verificationService;
 	private SimulatedMernisService simulatedMernisService;
 	private RegexService regexService;
 
 	@Autowired
-	public JobSeekerManager(ModelMapper modelMapper, CvExperienceDao experienceDao, JobSeekerDao jobSeekerDao,
-			LanguageDao languageDao, VerificationService verificationService, LinkDao linkDao,
-			PhotographDao photographDao, CvSkillDao programmingLanguageDao, UniversityDao universityDao,
-			RegexService regexService, SimulatedMernisService simulatedMernisService) {
+	public JobSeekerManager(ModelMapper modelMapper, JobSeekerDao jobSeekerDao, CvLanguageService cvLanguageService,
+			CvExperienceService cvExperienceService, LinkService linkService, PhotographService photographService,
+			CvSkillDao cvSkillService, CvEducationService cvEducationService, VerificationService verificationService,
+			SimulatedMernisService simulatedMernisService, RegexService regexService, CvPrewritingService cvPrewritingService) {
 		super();
 		this.modelMapper = modelMapper;
 		this.jobSeekerDao = jobSeekerDao;
-		this.languageDao = languageDao;
-		this.linkDao = linkDao;
-		this.photographDao = photographDao;
-		this.programmingLanguageDao = programmingLanguageDao;
-		this.experienceDao = experienceDao;
-		this.universityDao = universityDao;
-		this.regexService = regexService;
-		this.simulatedMernisService = simulatedMernisService;
+		this.cvLanguageService = cvLanguageService;
+		this.cvExperienceService = cvExperienceService;
+		this.linkService = linkService;
+		this.photographService = photographService;
+		this.cvSkillService = cvSkillService;
+		this.cvPrewritingService=cvPrewritingService;
+		this.cvExperienceService = cvExperienceService;
+		this.cvEducationService = cvEducationService;
 		this.verificationService = verificationService;
-
+		this.simulatedMernisService = simulatedMernisService;
+		this.regexService = regexService;
 	}
 
 	@Override
@@ -127,6 +131,20 @@ public class JobSeekerManager implements JobSeekerService {
 		this.verificationService.save(verificationCode);
 	}
 
+	@Override
+	public DataResult<CreateCvDto> getCreateCvById(int id) {
+		CreateCvDto createCvDto = new CreateCvDto();
+		createCvDto.setJobSeeker(this.getById(id).getData());
+		createCvDto.setPhotograph(this.photographService.getAllByUserId(id).getData());
+		createCvDto.setCvLanguage(this.cvLanguageService.getAllByJobSeekerId(id).getData());
+		createCvDto.setLink(this.linkService.getAllByJobSeekerId(id).getData());
+		createCvDto.setCvSkill(this.cvSkillService.getAllByJobSeekerId(id));
+		createCvDto.setCvEducation(this.cvEducationService.getAllByJobSeekerId(id).getData());
+		createCvDto.setCvExperience(this.cvExperienceService.getAllByJobSeekerId(id).getData());
+		createCvDto.setCvPrewriting(this.cvPrewritingService.getAllByJobSeekerId(id).getData());
+		return new SuccessDataResult<>(createCvDto, "Listed");
+	}
+
 	/*
 	 * @Override public Result update(JobSeekerRegisterDto jobSeekerDto, int userId)
 	 * {
@@ -167,7 +185,7 @@ public class JobSeekerManager implements JobSeekerService {
 	 */
 
 	@Override
-	public DataResult<JobSeeker> getById(int jobSeekerId) {//getone kullanma burada findbyid().get kullan bu problemli
+	public DataResult<JobSeeker> getById(int jobSeekerId) {// getone kullanma burada findbyid().get kullan bu problemli
 		return new SuccessDataResult<JobSeeker>(this.jobSeekerDao.getOne(jobSeekerId));
 	}
 }

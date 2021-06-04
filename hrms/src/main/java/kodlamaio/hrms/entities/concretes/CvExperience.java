@@ -29,7 +29,7 @@ public class CvExperience {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "experience_id")
-	private int experienceId;
+	private int cvExperienceId;
 
 	@Column(name = "company")
 	@NotBlank(message = "The field must be filled")

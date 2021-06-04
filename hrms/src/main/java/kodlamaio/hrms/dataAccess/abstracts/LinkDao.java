@@ -8,5 +8,5 @@ import kodlamaio.hrms.entities.concretes.Link;
 
 public interface LinkDao extends JpaRepository<Link, Integer>{
 
-	   List<Link> getAllByUserId(int userId);
+	   List<Link> getAllByLinkId(int linkId);
 }

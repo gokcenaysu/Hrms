@@ -11,13 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kodlamaio.hrms.business.abstracts.PhotographService;
-import kodlamaio.hrms.core.dataAccess.UserDao;
 import kodlamaio.hrms.core.imageUploaders.ImageService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
-import kodlamaio.hrms.dataAccess.abstracts.JobSeekerDao;
 import kodlamaio.hrms.dataAccess.abstracts.PhotographDao;
 import kodlamaio.hrms.entities.concretes.Photograph;
 import kodlamaio.hrms.entities.dtos.CreateCvDto;
