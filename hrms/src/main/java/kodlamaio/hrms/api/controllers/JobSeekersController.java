@@ -41,6 +41,6 @@ public class JobSeekersController {
 	
 	@GetMapping("/getCv")
 	public DataResult<CreateCvDto> getCvById(@RequestParam int id){
-		return (this.jobSeekerService.getCreateCvById(id));
+		return (this.jobSeekerService.getCvById(id));
 	}
 }

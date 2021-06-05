@@ -132,7 +132,7 @@ public class JobSeekerManager implements JobSeekerService {
 	}
 
 	@Override
-	public DataResult<CreateCvDto> getCreateCvById(int id) {
+	public DataResult<CreateCvDto> getCvById(int id) {
 		CreateCvDto createCvDto = new CreateCvDto();
 		createCvDto.setJobSeeker(this.getById(id).getData());
 		createCvDto.setPhotograph(this.photographService.getAllByUserId(id).getData());
