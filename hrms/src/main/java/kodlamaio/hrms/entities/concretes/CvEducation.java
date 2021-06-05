@@ -13,13 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.val;
 
 @Data
 @Entity
@@ -38,9 +38,11 @@ public class CvEducation {
 	private String schoolType;
 
 	@NotBlank(message = "The field must be filled")
+	@PastOrPresent
 	@Column(name = "edu_beginning_date")
 	private LocalDate schoolBeginningDate;
 
+	@PastOrPresent
 	@Column(name = "graduation_date")
 	private LocalDate graduationDate;
 

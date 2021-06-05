@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kodlamaio.hrms.business.abstracts.CvExperienceService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
-import kodlamaio.hrms.entities.concretes.CvEducation;
 import kodlamaio.hrms.entities.concretes.CvExperience;
 
 @RestController

@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,9 +37,11 @@ public class CvExperience {
 	private String company;
 
 	@NotNull(message = "The field must be filled")
+	@PastOrPresent
 	@Column(name = "job_beginning_date")
 	private LocalDate jobBeginnigDate;
 
+	@PastOrPresent
 	@Column(name = "job_ending_date")
 	private LocalDate jobEndingDate;
 

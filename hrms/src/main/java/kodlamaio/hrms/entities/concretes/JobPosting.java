@@ -1,5 +1,6 @@
 package kodlamaio.hrms.entities.concretes;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.PastOrPresent;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,8 +42,9 @@ public class JobPosting {
 	@Column(name = "open_position_number")
 	private int openPositionNumber;
 
+	@PastOrPresent
 	@Column(name = "application_deadline")
-	private String applicationDeadline;
+	private LocalDate applicationDeadline;
 
 	@Column(name = "posting_date")
 	private LocalDateTime postingDate = LocalDateTime.now();
