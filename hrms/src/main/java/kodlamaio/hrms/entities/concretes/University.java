@@ -41,5 +41,4 @@ public class University {
 	@ManyToOne()
 	@JoinColumn(name = "city_id")
 	private City city;
-
 }
