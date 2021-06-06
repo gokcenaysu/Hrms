@@ -1,5 +1,5 @@
 # Hrms
-Java Camp Project
+Java/React Camp Project
 
 ![HRMS](https://user-images.githubusercontent.com/74874448/120930640-de5fb200-c6f6-11eb-9252-0527c2e1544e.png)
 
