@@ -21,17 +21,17 @@ Java/React Camp Project
 - Adaylar bildikleri programlama dillerini veya teknolojilerini sisteme girebilmelidir. (Programlama/Teknoloji adı) Örneğin; React
 - Adaylar sisteme ön yazı ekleyebilmelidir. (Örneğin: Çalışmayı çok severim....)
 
-### 📌 Req 11: İş verenler sistemdeki bir ilanı kapatabilmelidir. (Pasif ilan)
+### 📌 Req 11: İŞ VERENLER SİSTEMDEKİ BİR İLANI KAPATABİLMELİDİR. (PASİF İLAN)
 
-### 📌 Req 10: Sistemde bir firmaya ait tüm aktif iş ilanları listelenebilmelidir.
+### 📌 Req 10: SİSTEMDE BİR FİRMAYA AİT TÜM AKTİF İŞ İLANLARI LİSTELENEBİLMELİDİR.
 - Liste, tablo formunda gelmelidir.
 - Listede firmadı, genel iş pozisyonu adı, açık pozisyon adedi, yayın tarihi, son başvuru tarihi bilgileri olmalıdır.
 
-### 📌 Req 9: Sistemdeki tüm aktif iş ilanları tarihe göre listelenebilmelidir.
+### 📌 Req 9: SİSTEMDEKİ TÜM AKTİF İŞ İLANLARI TARİHE GÖRE LİSTELENEBİLMELİDİR.
 - Liste, tablo formunda gelmelidir.
 - Listede firmadı, genel iş pozisyonu adı, açık pozisyon adedi, yayın tarihi, son başvuru tarihi bilgileri olmalıdır.
 
-### 📌 Req 8: Sistemdeki tüm aktif iş ilanları listelenebilmelidir.
+### 📌 Req 8: SİSTEMDEKİ TÜM AKTİF İŞ İLANLARI LİSTELENEBİLMELİDİR.
 - Liste, tablo formunda gelmelidir.
 - Listede firmadı, genel iş pozisyonu adı, açık pozisyon adedi, yayın tarihi, son başvuru tarihi bilgileri olmalıdır.
 
@@ -69,11 +69,4 @@ Java/React Camp Project
 - Doğrulama geçerli değilse kullanıcı bilgilendirilir.
 - Daha önce kayıtlı bir e-posta veya tcno var ise kayıt gerçekleşmez. Kullanıcı bilgilendirilir.
 - Kayıdın gerçekleşmesi için e-posta doğrulaması gerekir.
-
-
-
-
-
-
-
 
