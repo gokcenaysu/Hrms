@@ -3,6 +3,7 @@ package kodlamaio.hrms.api.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import kodlamaio.hrms.entities.dtos.JobSeekerRegisterDto;
 
 @RestController
 @RequestMapping("/api/jobseekers")
+@CrossOrigin
 public class JobSeekersController {
 
 	private JobSeekerService jobSeekerService;
@@ -38,6 +40,12 @@ public class JobSeekersController {
 	public Result register(@RequestBody JobSeekerRegisterDto jobSeekerDto) {
 		return this.jobSeekerService.register(jobSeekerDto);
 	}
+	
+	/*
+	@PostMapping("/update")
+	public Result update(@RequestBody JobSeekerRegisterDto jobSeekerDto) {
+		return this.jobSeekerService.update(jobSeekerDto);
+	}*/
 	
 	@GetMapping("/getCv")
 	public DataResult<CreateCvDto> getCvById(@RequestParam int id){

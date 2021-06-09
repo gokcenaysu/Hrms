@@ -19,6 +19,6 @@ public interface JobSeekerService {
     DataResult<CreateCvDto> getCvById(int id);
 
 
-//	Result update(JobSeekerRegisterDto jobSeekerDto, int userId);
+	//Result update(JobSeekerRegisterDto jobSeekerDto);
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.PastOrPresent;
 
 import lombok.AllArgsConstructor;
@@ -41,7 +42,7 @@ public class JobPosting {
 	@Column(name = "open_position_number")
 	private int openPositionNumber;
 
-	@PastOrPresent
+	@FutureOrPresent
 	@Column(name = "application_deadline")
 	private LocalDate applicationDeadline;
 

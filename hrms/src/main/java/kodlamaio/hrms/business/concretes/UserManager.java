@@ -15,6 +15,7 @@ import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
+import kodlamaio.hrms.entities.dtos.UserLoginDto;
 
 @Service
 public class UserManager implements UserService{
@@ -58,10 +59,6 @@ public class UserManager implements UserService{
 		}
 		if(!activationCode.equals(verificationService.verifyCode())) {
 			return new ErrorResult("Your verification code is wrong");
-		}
-		User users = getById(user.getId()).getData();
-		if(userDao.getById(users.getId())==null) {
-			return new ErrorResult("Not present");
 		}
 		else {
 			user.setStatus(true);

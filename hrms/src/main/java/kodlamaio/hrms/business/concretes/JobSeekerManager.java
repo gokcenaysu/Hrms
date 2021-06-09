@@ -146,42 +146,27 @@ public class JobSeekerManager implements JobSeekerService {
 	}
 
 	/*
-	 * @Override public Result update(JobSeekerRegisterDto jobSeekerDto, int userId)
-	 * {
-	 * 
-	 * JobSeeker jobSeeker = this.modelMapper.map(jobSeekerDto, JobSeeker.class);
-	 * JobSeeker jobSeekers = getById(userId).getData();
-	 * 
-	 * if(jobSeeker.getBirthYear().isEmpty() || jobSeeker.getFirstName().isEmpty()
-	 * || jobSeeker.getLastName().isEmpty() || jobSeeker.getPassword().isEmpty() ||
-	 * jobSeeker.getEmail().isEmpty() || jobSeeker.getFirstName().isBlank() ||
-	 * jobSeeker.getLastName().isBlank() || jobSeeker.getPassword().isBlank()) {
-	 * return new ErrorResult("Fields cannot be empty"); }
-	 * if(!regexService.isFirstNameFormat(jobSeeker.getFirstName())) { return new
-	 * ErrorResult("Please enter in name format"); }
-	 * 
-	 * if(!regexService.isLastNameFormat(jobSeeker.getLastName())) { return new
-	 * ErrorResult("Please enter in surname format"); }
-	 * 
-	 * if(!regexService.isBirthYearFormat(jobSeeker.getBirthYear())) { return new
-	 * ErrorResult("Please enter in birth year format"); }
-	 * 
-	 * if(!regexService.isEmailFormat(jobSeeker.getEmail())) { return new
-	 * ErrorResult("Please enter in e-mail format"); }
-	 * 
-	 * if(!simulatedMernisService.checkMernis(jobSeeker.getFirstName(),
-	 * jobSeeker.getLastName(), jobSeeker.getIdentityNumber(),
-	 * jobSeeker.getBirthYear())) { return new
-	 * ErrorResult("Authentication unsuccessful"); }
-	 * 
-	 * if(jobSeekerDao.getByEmailEquals(jobSeeker.getEmail())!=null) { return new
-	 * ErrorResult("E-mail already registered"); }
-	 * 
-	 * if(jobSeekerDao.getByIdentityNumberEquals(jobSeeker.getIdentityNumber())!=
-	 * null) { return new ErrorResult("ID number already registered"); }
-	 * 
-	 * else { jobSeekerDao.save(jobSeekerDto); return new
-	 * SuccessResult("Has been updated successfully"); }
+	  @Override public Result update(JobSeekerRegisterDto jobSeekerDto)
+	  {
+	  
+	  JobSeeker jobSeeker = this.modelMapper.map(jobSeekerDto, JobSeeker.class);
+
+	  
+	  if(!simulatedMernisService.checkMernis(jobSeeker.getFirstName(),
+	  jobSeeker.getLastName(), jobSeeker.getIdentityNumber(),
+	  jobSeeker.getBirthYear())) { return new
+	  ErrorResult("Authentication unsuccessful"); }
+	  
+	  if(jobSeekerDao.getByEmailEquals(jobSeeker.getEmail())!=null) { return new
+	  ErrorResult("E-mail already registered"); }
+	  
+	  if(jobSeekerDao.getByIdentityNumberEquals(jobSeeker.getIdentityNumber())!=
+	  null) { return new ErrorResult("ID number already registered"); }
+	  
+	  else { jobSeekerDao.save(jobSeekerDto); return new
+	  SuccessResult("Has been updated successfully");
+	  }
+	  }
 	 */
 
 	@Override
