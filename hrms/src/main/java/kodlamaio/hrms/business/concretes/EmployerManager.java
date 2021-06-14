@@ -63,6 +63,10 @@ public class EmployerManager implements EmployerService {
 		if (!emailSplit[1].equals(employer.getWebsite())) {
 			return new ErrorResult("Your e-mail address and domain do not match");
 		}
+		
+		if(!employerDto.getPassword().equals(employerDto.getRePassword())) {
+			return new ErrorResult("The passwords not same");
+		}
 
 		if (employerDao.getByEmailEquals(employer.getEmail()) != null) {
 			return new ErrorResult("E-mail already registered");

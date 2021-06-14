@@ -9,6 +9,4 @@ import kodlamaio.hrms.entities.concretes.EmployerPersonnelConfirm;
 public interface EmployerPersonnelConfirmDao extends JpaRepository<EmployerPersonnelConfirm, Integer> {
 
 	EmployerPersonnelConfirm getByEmployerId(int id);
-
-	boolean existsByEmployerId(int id);
 }

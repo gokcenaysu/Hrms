@@ -37,7 +37,7 @@ public class PostingPersonnelConfirm {
 	@Column(name="confirm_date")
 	private LocalDateTime confirmDate = LocalDateTime.now();
 	
-	@OneToOne(targetEntity=JobPosting.class)
-	@JoinColumn(name="job_posting_id", referencedColumnName="posting_id")
+	@OneToOne()
+	@JoinColumn(name="job_posting_id")
 	private JobPosting jobPosting;
 }

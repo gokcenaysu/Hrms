@@ -38,6 +38,6 @@ public class EmployerPersonnelConfirm {
 	private LocalDateTime confirmDate = LocalDateTime.now();
 	
 	@OneToOne(targetEntity = Employer.class)
-	@JoinColumn(name = "employer_id", referencedColumnName = "user_id")
+	@JoinColumn(name = "employer_id")
 	private Employer employer;
 }

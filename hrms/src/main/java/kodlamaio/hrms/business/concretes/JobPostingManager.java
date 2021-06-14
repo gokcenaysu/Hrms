@@ -47,6 +47,11 @@ public class JobPostingManager implements JobPostingService {
 	@Override
 	public Result update(int postingId, boolean activityStatus) {
 		JobPosting jobPosting = getByPostingId(postingId).getData();
+		
+		if(jobPosting.getWorkingTime()==null) {
+			return new ErrorResult("Please choose");
+		}
+		
 		if (jobPosting.isActivityStatus() && !activityStatus) {
 			jobPosting.setActivityStatus(false);
 			this.jobPostingDao.save(jobPosting);

@@ -83,6 +83,10 @@ public class JobSeekerManager implements JobSeekerService {
 				|| jobSeeker.getPassword().isBlank()) {
 			return new ErrorResult("Fields cannot be empty");
 		}
+		
+		if(!jobSeekerDto.getPassword().equals(jobSeekerDto.getRePassword())) {
+			return new ErrorResult("The passwords not same");
+		}
 
 		if (!regexService.isFirstNameFormat(jobSeeker.getFirstName())) {
 			return new ErrorResult("Your name must start with a capital letter");

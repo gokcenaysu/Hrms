@@ -54,7 +54,7 @@ public class PostingPersonnelConfirmManager implements PostingPersonnelConfirmSe
 		jobPosting = jobPostingDao.getByPostingIdEquals(postingId);
 		jobPosting.setActivityStatus(true);
 		jobPostingDao.save(jobPosting);
-		posting = postingPersonnelConfirmDao.getByJobPostingId(jobPosting.getPostingId());
+		posting = postingPersonnelConfirmDao.getByJobPosting(jobPosting.getPostingId());
 		posting.setConfirmed(true);
 		posting.setConfirmDate(LocalDateTime.now());
 		postingPersonnelConfirmDao.save(posting);

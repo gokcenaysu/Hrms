@@ -7,7 +7,5 @@ import kodlamaio.hrms.entities.concretes.PostingPersonnelConfirm;
 
 public interface PostingPersonnelConfirmDao extends JpaRepository<PostingPersonnelConfirm, Integer>{
 
-	PostingPersonnelConfirm getByJobPostingId (int id);
-
-	//boolean existsByJobPostingId(int id);
+	PostingPersonnelConfirm getByJobPosting (int id);
 }
