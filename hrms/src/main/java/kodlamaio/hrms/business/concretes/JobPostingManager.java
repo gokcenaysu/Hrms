@@ -100,7 +100,7 @@ public class JobPostingManager implements JobPostingService {
 	@Override
 	public DataResult<List<JobPostingDto>> getByActivityStatusAndEmployer(int employerId) {
 		return new SuccessDataResult<List<JobPostingDto>>(
-				this.dtoGenerator(this.jobPostingDao.getByActivityStatusAndEmployer_Id(true, employerId)));
+				this.dtoGenerator(this.jobPostingDao.getByActivityStatusAndEmployerId(true, employerId)));
 	}
 
 }

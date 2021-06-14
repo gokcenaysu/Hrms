@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
-import kodlamaio.hrms.business.abstracts.ConfirmByPersonnelService;
+import kodlamaio.hrms.business.abstracts.EmployerPersonnelConfirmService;
 import kodlamaio.hrms.core.adapters.abstracts.RegexService;
 import kodlamaio.hrms.core.adapters.abstracts.VerificationService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
@@ -28,11 +28,11 @@ public class EmployerManager implements EmployerService {
 	private RegexService regexService;
 	private ModelMapper modelMapper;
 	private VerificationService verificationService;
-	private ConfirmByPersonnelService confirmByPersonnelService;
+	private EmployerPersonnelConfirmService confirmByPersonnelService;
 
 	@Autowired
 	public EmployerManager(EmployerDao employerDao, RegexService regexService, ModelMapper modelMapper,
-			ConfirmByPersonnelService confirmByPersonnelService, VerificationService verificationService) {
+			EmployerPersonnelConfirmService confirmByPersonnelService, VerificationService verificationService) {
 		super();
 		this.employerDao = employerDao;
 		this.confirmByPersonnelService = confirmByPersonnelService;
@@ -96,15 +96,6 @@ public class EmployerManager implements EmployerService {
 	public void verificationCode(String code, int id, String email) {
 		Verification verificationCode = new Verification(id, code, false, LocalDateTime.now());
 		this.verificationService.save(verificationCode);
-	}
-
-	@Override
-	public Result confirmByPersonnel(Employer employer) {
-		if (!confirmByPersonnelService.isConfirmedByPersonnel(employer)) {
-			return new ErrorResult("Your required confirm by the personnel has not been completed");
-		} else {
-			return new SuccessResult("Your confirm by the personnel has been completed");
-		}
 	}
 
 	/*

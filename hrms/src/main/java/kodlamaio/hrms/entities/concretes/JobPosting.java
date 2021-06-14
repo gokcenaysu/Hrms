@@ -10,9 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +34,7 @@ public class JobPosting {
 	private int postingId;
 
 	@Column(name = "job_definition")
+	@NotNull
 	private String jobDefinition;
 
 	@Column(name = "min_salary")
@@ -40,6 +44,7 @@ public class JobPosting {
 	private double maxSalary;
 
 	@Column(name = "open_position_number")
+	@NotNull
 	private int openPositionNumber;
 
 	@FutureOrPresent
@@ -51,6 +56,9 @@ public class JobPosting {
 
 	@Column(name = "activity_status")
 	private boolean activityStatus;
+	
+	@Column(name="is_remote")
+	private boolean isRemote;
 
 	@ManyToOne()
 	@JoinColumn(name = "employer_id")
@@ -63,4 +71,11 @@ public class JobPosting {
 	@ManyToOne()
 	@JoinColumn(name = "city_id")
 	private City city;
+	
+	@ManyToOne()
+	@JoinColumn(name="working_time_id")
+	private WorkingTime workingTime;
+	
+	@OneToOne(mappedBy="jobPosting")
+	private PostingPersonnelConfirm postingPersonnelConfirm;
 }

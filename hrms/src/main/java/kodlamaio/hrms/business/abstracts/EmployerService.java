@@ -13,8 +13,6 @@ public interface EmployerService {
 
 	Result register(EmployerRegisterDto employer);
 
-	Result confirmByPersonnel(Employer employer);
-
 	DataResult<Employer> getById(int userId);
 
 	// Result update(Employer employer, int userId);

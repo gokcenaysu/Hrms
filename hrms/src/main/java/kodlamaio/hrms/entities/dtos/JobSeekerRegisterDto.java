@@ -12,7 +12,7 @@ public class JobSeekerRegisterDto {
 	private String firstName;
 	private String lastName;
 	private String identityNumber;
-	private String birthYear;;
+	private String birthYear;
 	private String email;
 	private String password;
 	private String rePassword;

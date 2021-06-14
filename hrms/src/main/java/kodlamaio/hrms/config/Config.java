@@ -32,10 +32,4 @@ public class Config {
         return new CloudinaryService();
     }
     
-    
-	/*
-	//@Bean
-	public ImageService imageService(){
-	    return new CloudinaryService();
-	}*/
 }
