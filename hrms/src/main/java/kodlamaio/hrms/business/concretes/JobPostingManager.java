@@ -31,7 +31,7 @@ public class JobPostingManager implements JobPostingService {
 	}
 
 	private List<JobPostingDto> dtoGenerator(List<JobPosting> posting) {
-		return posting.stream().map(adv -> modelMapper.map(adv, JobPostingDto.class)).collect(Collectors.toList());
+		return posting.stream().map(post -> modelMapper.map(post, JobPostingDto.class)).collect(Collectors.toList());
 	}
 
 	@Override
